@@ -4,7 +4,8 @@
   "description": "Multi-select widget where users can select options from a list in the left side to a list on the right",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "webpack-dev-server --config build/webpack.dev.conf.js --hot --progress -d"
   },
   "keywords": [
     "vue",
@@ -14,7 +15,22 @@
   "author": "Abhi",
   "license": "ISC",
   "devDependencies": {
-    "webpack": "^4.41.2"
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/runtime": "^7.7.7",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-loader": "^3.0.2",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-vue": "^5.2.3",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^8.0.0",
+    "vue-loader": "^15.7.1",
+    "webpack": "^4.41.2",
+    "webpack-dev-server": "^3.10.1",
+    "webpack-merge": "^4.2.2"
   },
   "dependencies": {
     "vue": "^2.6.10"
