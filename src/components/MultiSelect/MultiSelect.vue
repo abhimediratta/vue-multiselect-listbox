@@ -19,7 +19,7 @@
         <i class="fa fa-angle-double-right p-0" />
       </a>
 
-      <i class="fa fa-exchange m-t-20" />
+      <font-awesome-icon icon="exchange-alt" />
 
       <a
         class="btn btn-function m-t-20"
@@ -43,7 +43,14 @@
 </template>
 
 <script>
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faExchangeAlt } from '@fortawesome/free-solid-svg-icons';
+
 import SearchableList from '../SearchableList/SearchableList';
+
+
+library.add(faExchangeAlt);
 
 function getSelectedItemsFromValue(values, valueProperty, availableOptions) {
   if (valueProperty) {
@@ -81,6 +88,7 @@ export default {
   name: 'MultiSelect',
   components: {
     SearchableList,
+    FontAwesomeIcon,
   },
   model: {
     prop: 'value',

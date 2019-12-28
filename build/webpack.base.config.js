@@ -1,4 +1,5 @@
 const path = require('path');
+const { VueLoaderPlugin } = require('vue-loader');
 
 const env = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
@@ -34,6 +35,7 @@ module.exports = {
       {
         test: /\.s?css$/,
         loader: [
+          'vue-style-loader',
           'css-loader',
           'postcss-loader',
           'sass-loader',
@@ -41,4 +43,7 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new VueLoaderPlugin(),
+  ],
 };

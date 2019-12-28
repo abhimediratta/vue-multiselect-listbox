@@ -32,7 +32,20 @@
 </template>
 
 <script>
-import debounce from 'utils/debounce';
+import debounce from '../../utils/debounce';
+
+function getValue(item, valueProperty) {
+  return valueProperty ? ((item && item[valueProperty]) || '') : item;
+}
+
+function convertArrayToMap(items, valueProperty) {
+  return items.reduce((result, item) => {
+    const value = getValue(item, valueProperty);
+    result[value] = true;
+    return result;
+  }, {});
+}
+
 
 export default {
   name: 'SearchableList',
@@ -53,7 +66,7 @@ export default {
     placeholderText: {
       type: String,
       default() {
-        return this.$i18n.t('SEARCH');
+        return 'Search';
       },
     },
     displayProperty: {
@@ -67,7 +80,7 @@ export default {
     noOptionsText: {
       type: String,
       default() {
-        return this.$i18n.t('NO_ITEMS');
+        return 'No options';
       },
     },
   },
@@ -81,15 +94,17 @@ export default {
       return !this.listItems || this.listItems.length < 1;
     },
     noFilteredItems() {
-      return this.availableItems && this.availableItems.length > 0 && (!this.filteredListItems || this.filteredListItems.length < 1);
+      return this.availableItems
+      && this.availableItems.length > 0
+      && (!this.filteredListItems || this.filteredListItems.length < 1);
     },
     debouncedSearchText: {
       get() {
         return this.searchText;
       },
-      set: debounce(function setNewSearchTextValue(newValue) {
-        this.searchText = (newValue && newValue.toLowerCase()) || '';
-      }, 250),
+      set: debounce(function setNewValue(newValue) {
+        this.searchText = newValue;
+      }, 1000),
     },
     availableItems() {
       if (this.listItems && this.selectedListItems) {
@@ -104,10 +119,11 @@ export default {
       return this.listItems;
     },
     filteredListItems() {
-      if (this.searchText) {
+      if (this.searchText !== undefined) {
         return this.availableItems.filter(function filterItem(item) {
           const display = this.getOptionDisplay(item, this.displayProperty);
-          return display && display.toLowerCase().indexOf(this.searchText) > -1;
+
+          return display && display.toLowerCase().includes(this.searchText.toLowerCase());
         }.bind(this));
       }
       return this.availableItems || this.listItems;
@@ -122,18 +138,6 @@ export default {
     },
   },
 };
-
-function convertArrayToMap(items, valueProperty) {
-  return reduce(items, (result, item) => {
-    const value = getValue(item, valueProperty);
-    result[value] = true;
-    return result;
-  }, {});
-}
-
-function getValue(item, valueProperty) {
-  return valueProperty ? ((item && item[valueProperty]) || '') : item;
-}
 </script>
 
 <style lang="scss" scoped>
@@ -143,7 +147,7 @@ function getValue(item, valueProperty) {
 }
 
 .searchable-list__items {
-  border: 1px solid var(--component-multi-select__list-border-color);
+  border: 1px solid #5b5d66;
   flex-basis: 100%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -155,11 +159,10 @@ function getValue(item, valueProperty) {
 
 .searchable-list__item {
   cursor: pointer;
-  border-bottom: 1px solid var(--component-multi-select__option-border-color);
-  background-color: (--component-multi-select__option-bg);
+  border-bottom: 1px solid #252b45;
   &:hover {
-    background: var(--component-multi-select__option--hover-bg);
-    color: $white;
+    background: #3858e7;
+    color: #fff;
   }
 }
 </style>

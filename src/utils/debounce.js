@@ -2,13 +2,16 @@ export default function debounce(callback, timeout = 250) {
   let timer;
 
   function debounced(...args) {
-    if (!timer) {
-      clearTimeout(timer);
+    const self = this;
+    const lastArgs = args;
 
-      timer = setTimeout(() => {
-        callback(args);
-      }, timeout);
-    }
+    clearTimeout(timer);
+    timer = null;
+
+    timer = setTimeout(() => {
+      timer = null;
+      callback.apply(self, lastArgs);
+    }, timeout);
   }
 
   return debounced;
