@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- <sandbox hide-help v-slot="config"> -->
-    <MultiSelect v-model="value" :list-items="listItems" />
+    <MultiSelect v-model="value" :list-items="listItems" :show-select-all="showSelectAll" />
     <!-- </sandbox> -->
   </div>
 </template>
@@ -17,6 +17,7 @@ export default {
     return {
       value: [],
       listItems: ['Chicago', 'Wisconsin', 'Houston'],
+      showSelectAll: true,
     };
   },
 };

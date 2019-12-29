@@ -12,21 +12,21 @@
 
     <div class="multi-select__actions">
       <a
-        class="btn btn-function m-t-30"
+        class="multi-select__action multi-select__action-select-all m-t-30"
         :class="{'invisible': !showSelectAll}"
         @click="onSelectAllOptions"
       >
-        <i class="fa fa-angle-double-right p-0" />
+        <font-awesome-icon icon="angle-double-right" />
       </a>
 
-      <font-awesome-icon icon="exchange-alt" />
+      <font-awesome-icon icon="exchange-alt" class="multi-select__action-icon" />
 
       <a
-        class="btn btn-function m-t-20"
+        class="multi-select__action multi-select__action-unselect-all m-t-20"
         :class="{'invisible': !showSelectAll}"
         @click="onUnselectAllOptions"
       >
-        <i class="fa fa-angle-double-left p-0" />
+        <font-awesome-icon icon="angle-double-left" />
       </a>
     </div>
 
@@ -45,12 +45,12 @@
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faExchangeAlt } from '@fortawesome/free-solid-svg-icons';
+import { faExchangeAlt, faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
 
 import SearchableList from '../SearchableList/SearchableList';
 
 
-library.add(faExchangeAlt);
+library.add(faExchangeAlt, faAngleDoubleLeft, faAngleDoubleRight);
 
 function getSelectedItemsFromValue(values, valueProperty, availableOptions) {
   if (valueProperty) {
@@ -224,6 +224,27 @@ export default {
   flex-direction: column;
   align-items: center;
   padding: 0 10px;
+}
+
+.multi-select__action {
+  cursor: pointer;
+
+  &:hover {
+    color: $multi-select-action-hover-font-color;
+  }
+}
+
+.multi-select__action-select-all {
+  margin-top: 30px;
+}
+
+.multi-select__action-unselect-all {
+  margin-top: 20px;
+}
+
+.multi-select__action-icon {
+  margin-top: 17px;
+  color: $multi-select-action-icon-font-color;
 }
 
 .multi-select__list {

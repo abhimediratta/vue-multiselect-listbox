@@ -2,7 +2,8 @@
   <div class="searchable-list">
     <input
       v-model="debouncedSearchText"
-      class="form-control m-b-20"
+      class="search-list-input"
+      :class="searchInputClass"
       :placeholder="placeholderText"
     >
     <div class="searchable-list__items">
@@ -17,16 +18,17 @@
 
       <div
         v-if="noItems"
-        class="text-muted"
+        class="searchable-list__no-item"
       >
         {{ noOptionsText }}
       </div>
 
       <div
         v-if="noFilteredItems"
-        v-t="'NO_FILTERED_ITEMS'"
-        class="text-muted"
-      />
+        class="searchable-list__no-item"
+      >
+        No items found
+      </div>
     </div>
   </div>
 </template>
@@ -81,6 +83,12 @@ export default {
       type: String,
       default() {
         return 'No options';
+      },
+    },
+    searchInputClass: {
+      type: String,
+      default() {
+        return '';
       },
     },
   },
@@ -140,29 +148,37 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.search-list-input {
+  margin-bottom: 10px;
+}
+
 .searchable-list {
   display: flex;
   flex-direction: column;
 }
 
 .searchable-list__items {
-  border: 1px solid #5b5d66;
+  border: 1px solid $multi-select-items-box-border-color;
   flex-basis: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  > div {
-    font-size: 0.9em;
-    padding: 5px 10px;
-  }
+}
+
+.searchable-list__no-item {
+  font-size: 0.9em;
+  padding: 5px 10px;
+  color: $multi-select-no-item-font-color;
 }
 
 .searchable-list__item {
+  font-size: 0.9em;
+  padding: 5px 10px;
   cursor: pointer;
-  border-bottom: 1px solid #252b45;
+  border-bottom: 1px solid $multi-select-item-border-bottom-color;
   &:hover {
-    background: #3858e7;
-    color: #fff;
+    background: $multi-select-item-hover-bg;
+    color: $multi-select-item-hover-font-color;
   }
 }
 </style>
