@@ -1,9 +1,14 @@
 const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const env = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
 const devtool = env === 'production' ? 'source-map' : 'eval-source-map';
+
+const extractOrInjectStyles = env !== 'production'
+  ? 'vue-style-loader'
+  : MiniCssExtractPlugin.loader;
 
 module.exports = {
   mode: env,
@@ -29,13 +34,17 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: path.resolve(__dirname, '../'),
+        include: path.resolve(__dirname, '../src'),
         exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/,
+        loader: 'css-loader',
       },
       {
         test: /\.s?css$/,
         loader: [
-          'vue-style-loader',
+          extractOrInjectStyles,
           'css-loader',
           'postcss-loader',
           'sass-loader',
@@ -47,6 +56,8 @@ module.exports = {
             },
           },
         ],
+        include: path.resolve(__dirname, '../src'),
+        exclude: /node_modules/,
       },
     ],
   },

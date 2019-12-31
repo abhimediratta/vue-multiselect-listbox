@@ -43,13 +43,14 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faExchangeAlt, faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
 
 import SearchableList from '../SearchableList/SearchableList';
 
-
+Vue.component('FontAwesomeIcon', FontAwesomeIcon);
 library.add(faExchangeAlt, faAngleDoubleLeft, faAngleDoubleRight);
 
 function getSelectedItemsFromValue(values, valueProperty, availableOptions) {
@@ -212,7 +213,7 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .multi-select {
   display: inline-flex;
   height: 300px;
