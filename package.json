@@ -1,6 +1,6 @@
 {
   "name": "vue-multiselect-listbox",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Multi-select widget where users can select options from a list in the left side to a list on the right",
   "main": "index.js",
   "scripts": {
@@ -44,14 +44,13 @@
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1",
-    "webpack-merge": "^4.2.2"
-  },
-  "dependencies": {
+    "webpack-merge": "^4.2.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
     "@fortawesome/free-solid-svg-icons": "^5.12.0",
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "vue": "^2.6.11"
   },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/abhimediratta/vue-multiselect-listbox.git"
