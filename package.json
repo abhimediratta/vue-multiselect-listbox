@@ -13,8 +13,8 @@
     "multiselect",
     "listbox"
   ],
-  "author": "Abhi",
-  "license": "ISC",
+  "author": "Abhi Mediratta",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/plugin-transform-runtime": "^7.7.6",
@@ -51,5 +51,9 @@
     "@fortawesome/free-solid-svg-icons": "^5.12.0",
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "vue": "^2.6.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhimediratta/vue-multiselect-listbox.git"
   }
 }
