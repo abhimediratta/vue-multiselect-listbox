@@ -11,7 +11,9 @@
   "keywords": [
     "vue",
     "multiselect",
-    "listbox"
+    "listbox",
+    "dual",
+    "selectbox"
   ],
   "author": "Abhi Mediratta",
   "license": "MIT",
