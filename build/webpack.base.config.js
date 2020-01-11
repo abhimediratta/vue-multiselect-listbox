@@ -1,6 +1,8 @@
 const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
 
 const env = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
@@ -64,7 +66,8 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'style.css',
+      filename: 'vue-multi-select-listbox.css',
     }),
+    new BundleAnalyzerPlugin(),
   ],
 };

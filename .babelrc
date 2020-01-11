@@ -1,5 +1,14 @@
 {
   "presets": ["@babel/preset-env"],
-  "plugins": ["@babel/plugin-transform-runtime"],
+  "plugins": [
+    ["transform-imports", {
+      "@fortawesome/free-solid-svg-icons": {
+        "transform": "@fortawesome/free-solid-svg-icons/${member}",
+        "preventFullImport": true,
+        "skipDefaultConversion": true
+      }
+    }], 
+    "@babel/plugin-transform-runtime"
+  ],
   "comments": false
 }

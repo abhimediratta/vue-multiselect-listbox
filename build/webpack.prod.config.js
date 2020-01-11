@@ -3,6 +3,7 @@ const merge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base.config');
 
 module.exports = merge(baseWebpackConfig, {
+  mode: 'production',
   entry: './src/index.js',
   output: {
     filename: 'vue-multi-select-listbox.js',
