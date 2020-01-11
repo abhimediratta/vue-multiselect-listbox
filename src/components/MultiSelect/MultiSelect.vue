@@ -1,18 +1,18 @@
 <template>
-  <div class="multi-select">
+  <div class="msl-multi-select">
     <SearchableList
       :list-items="availableOptions"
       :selected-list-items="value"
       :display-property="displayProperty"
       :value-property="valueProperty"
       :placeholder="searchPlaceholder"
-      class="multi-select__list"
+      class="msl-multi-select__list"
       @onClickOption="onOptionSelect"
     />
 
-    <div class="multi-select__actions">
+    <div class="msl-multi-select__actions">
       <a
-        class="multi-select__action multi-select__action-select-all m-t-30"
+        class="msl-multi-select__action msl-multi-select__action-select-all"
         :class="{'invisible': !showSelectAll}"
         @click="onSelectAllOptions"
       >
@@ -22,7 +22,7 @@
       <font-awesome-icon icon="exchange-alt" class="multi-select__action-icon" />
 
       <a
-        class="multi-select__action multi-select__action-unselect-all m-t-20"
+        class="msl-multi-select__action msl-multi-select__action-unselect-all"
         :class="{'invisible': !showSelectAll}"
         @click="onUnselectAllOptions"
       >
@@ -36,7 +36,7 @@
       :display-property="displayProperty"
       :value-property="valueProperty"
       :placeholder="selectedPlaceholder"
-      class="multi-select__selected multi-select__list"
+      class="msl-multi-select__selected msl-multi-select__list"
       @onClickOption="onOptionRemove"
     />
   </div>
@@ -212,41 +212,5 @@ export default {
 </script>
 
 <style lang="scss">
-.multi-select {
-  display: inline-flex;
-  height: 300px;
-}
-
-.multi-select__actions {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 10px;
-}
-
-.multi-select__action {
-  cursor: pointer;
-
-  &:hover {
-    color: $multi-select-action-hover-font-color;
-  }
-}
-
-.multi-select__action-select-all {
-  margin-top: 30px;
-}
-
-.multi-select__action-unselect-all {
-  margin-top: 20px;
-}
-
-.multi-select__action-icon {
-  margin-top: 17px;
-  color: $multi-select-action-icon-font-color;
-}
-
-.multi-select__list {
-  width: 100%;
-}
+@import '../../scss/vue-multi-select-listbox.scss';
 </style>

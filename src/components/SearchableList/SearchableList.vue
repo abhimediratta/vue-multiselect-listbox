@@ -1,16 +1,16 @@
 <template>
-  <div class="searchable-list">
+  <div class="msl-searchable-list">
     <input
       v-model="debouncedSearchText"
-      class="search-list-input"
+      class="msl-search-list-input"
       :class="searchInputClass"
       :placeholder="placeholderText"
     >
-    <div class="searchable-list__items">
+    <div class="msl-searchable-list__items">
       <div
         v-for="(option, index) in filteredListItems"
         :key="index"
-        class="multi-select-option searchable-list__item"
+        class="multi-select-option msl-searchable-list__item"
         @click="clickOption(option)"
       >
         {{ getOptionDisplay(option, displayProperty) }}
@@ -18,14 +18,14 @@
 
       <div
         v-if="noItems"
-        class="searchable-list__no-item"
+        class="msl-searchable-list__no-item"
       >
         {{ noOptionsText }}
       </div>
 
       <div
         v-if="noFilteredItems"
-        class="searchable-list__no-item"
+        class="msl-searchable-list__no-item"
       >
         No items found
       </div>
@@ -149,36 +149,4 @@ export default {
 </script>
 
 <style lang="scss">
-.search-list-input {
-  margin-bottom: 10px;
-}
-
-.searchable-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.searchable-list__items {
-  border: 1px solid $multi-select-items-box-border-color;
-  flex-basis: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.searchable-list__no-item {
-  font-size: 0.9em;
-  padding: 5px 10px;
-  color: $multi-select-no-item-font-color;
-}
-
-.searchable-list__item {
-  font-size: 0.9em;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-bottom: 1px solid $multi-select-item-border-bottom-color;
-  &:hover {
-    background: $multi-select-item-hover-bg;
-    color: $multi-select-item-hover-font-color;
-  }
-}
 </style>

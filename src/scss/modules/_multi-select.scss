@@ -1,0 +1,37 @@
+.msl-multi-select {
+  display: inline-flex;
+  height: 300px;
+}
+
+.msl-multi-select__actions {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.msl-multi-select__action {
+  cursor: pointer;
+
+  &:hover {
+    color: $msl-multi-select-action-hover-font-color;
+  }
+}
+
+.msl-multi-select__action-select-all {
+  margin-bottom: 20px;
+}
+
+.msl-multi-select__action-unselect-all {
+  margin-top: 20px;
+}
+
+.msl-multi-select__action-icon {
+  margin-top: 17px;
+  color: $msl-multi-select-action-icon-font-color;
+}
+
+.msl-multi-select__list {
+  width: 100%;
+}

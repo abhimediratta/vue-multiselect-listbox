@@ -1,0 +1,32 @@
+.msl-search-list-input {
+  margin-bottom: 10px;
+}
+
+.msl-searchable-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.msl-searchable-list__items {
+  border: 1px solid $msl-multi-select-items-box-border-color;
+  flex-basis: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.msl-searchable-list__no-item {
+  font-size: 0.9em;
+  padding: 5px 10px;
+  color: $msl-multi-select-no-item-font-color;
+}
+
+.msl-searchable-list__item {
+  font-size: 0.9em;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid $msl-multi-select-item-border-bottom-color;
+  &:hover {
+    background: $msl-multi-select-item-hover-bg;
+    color: $msl-multi-select-item-hover-font-color;
+  }
+}
