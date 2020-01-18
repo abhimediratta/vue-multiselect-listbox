@@ -3,9 +3,9 @@
     <SearchableList
       :list-items="availableOptions"
       :selected-list-items="value"
-      :display-property="displayProperty"
-      :value-property="valueProperty"
-      :placeholder="searchPlaceholder"
+      :display-property="reduceDisplayProperty"
+      :value-property="reduceValueProperty"
+      :placeholder="searchOptionsPlaceholder"
       class="msl-multi-select__list"
       @onClickOption="onOptionSelect"
     />
@@ -13,7 +13,7 @@
     <div class="msl-multi-select__actions">
       <a
         class="msl-multi-select__action msl-multi-select__action-select-all"
-        :class="{'invisible': !showSelectAll}"
+        :class="{'invisible': !showSelectAllButtons}"
         @click="onSelectAllOptions"
       >
         <font-awesome-icon icon="angle-double-right" />
@@ -23,7 +23,7 @@
 
       <a
         class="msl-multi-select__action msl-multi-select__action-unselect-all"
-        :class="{'invisible': !showSelectAll}"
+        :class="{'invisible': !showSelectAllButtons}"
         @click="onUnselectAllOptions"
       >
         <font-awesome-icon icon="angle-double-left" />
@@ -33,9 +33,9 @@
     <SearchableList
       :list-items="selectedItems"
       :no-options-text="'Select'"
-      :display-property="displayProperty"
-      :value-property="valueProperty"
-      :placeholder="selectedPlaceholder"
+      :display-property="reduceDisplayProperty"
+      :value-property="reduceValueProperty"
+      :placeholder="selectedOptionsPlaceholder"
       class="msl-multi-select__selected msl-multi-select__list"
       @onClickOption="onOptionRemove"
     />
@@ -82,7 +82,6 @@ function getValuesFromOptions(valueProperty, options) {
   return values;
 }
 
-
 export default {
   name: 'MultiSelect',
   components: {
@@ -100,53 +99,53 @@ export default {
       },
       required: true,
     },
-    listItems: {
+    options: {
       type: Array,
       default() {
         return [];
       },
     },
-    searchPlaceholder: {
+    searchOptionsPlaceholder: {
       type: String,
       default() {
         return 'Search';
       },
     },
-    selectedPlaceholder: {
+    selectedOptionsPlaceholder: {
       type: String,
       default() {
         return 'Search';
       },
     },
-    displayProperty: {
-      type: String,
-      default: '',
+    reduceDisplayProperty: {
+      type: Function,
+      default: (value) => value,
     },
-    valueProperty: {
-      type: String,
-      default: '',
+    reduceValueProperty: {
+      type: Function,
+      default: (value) => value,
     },
     noOptionsText: {
       type: String,
       default: '',
     },
-    showSelectAll: {
+    showSelectAllButtons: {
       type: Boolean,
       default: false,
     },
   },
   data() {
     return {
-      selectedItems: getSelectedItemsFromValue(this.value, this.valueProperty, this.listItems),
+      selectedItems: getSelectedItemsFromValue(this.value, this.valueProperty, this.options),
     };
   },
   computed: {
     availableOptions() {
       if (!this.value || !this.value.length) {
-        return [...this.listItems];
+        return [...this.options];
       }
 
-      return this.listItems.filter((option) => {
+      return this.options.filter((option) => {
         if (this.valueProperty) {
           return this.value.indexOf(option[this.valueProperty]) < 0;
         }
@@ -194,9 +193,9 @@ export default {
       this.$emit('change', items);
     },
     onSelectAllOptions() {
-      this.selectedItems = [...this.listItems];
+      this.selectedItems = [...this.options];
 
-      const selectedValues = getValuesFromOptions(this.valueProperty, this.listItems);
+      const selectedValues = getValuesFromOptions(this.valueProperty, this.options);
       this.$emit('input', selectedValues);
       this.$emit('change', selectedValues);
     },

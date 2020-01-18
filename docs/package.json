@@ -1,0 +1,16 @@
+{
+  "name": "@vue-multi-select-listbox/docs",
+  "version": "0.0.1",
+  "description": "Docs",
+  "author": "Abhi Mediratta <abhimediratta@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "serve": "vuepress dev",
+    "build": "vuepress build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "vue": "^2.6.10",
+    "vuepress": "^1.2.0"
+  }
+}

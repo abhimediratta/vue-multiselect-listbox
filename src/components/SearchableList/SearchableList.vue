@@ -37,7 +37,7 @@
 import debounce from '../../utils/debounce';
 
 function getValue(item, valueProperty) {
-  return valueProperty ? ((item && item[valueProperty]) || '') : item;
+  return valueProperty(item);
 }
 
 function convertArrayToMap(items, valueProperty) {
@@ -47,7 +47,6 @@ function convertArrayToMap(items, valueProperty) {
     return result;
   }, {});
 }
-
 
 export default {
   name: 'SearchableList',
@@ -72,12 +71,12 @@ export default {
       },
     },
     displayProperty: {
-      type: String,
-      default: '',
+      type: Function,
+      default: (value) => value,
     },
     valueProperty: {
-      type: String,
-      default: '',
+      type: Function,
+      default: (value) => value,
     },
     noOptionsText: {
       type: String,
@@ -112,7 +111,7 @@ export default {
       },
       set: debounce(function setNewValue(newValue) {
         this.searchText = newValue;
-      }, 1000),
+      }, 500),
     },
     availableItems() {
       if (this.listItems && this.selectedListItems) {
@@ -139,7 +138,7 @@ export default {
   },
   methods: {
     getOptionDisplay(option, displayProperty) {
-      return displayProperty ? ((option && option[displayProperty]) || '') : option;
+      return displayProperty(option) || '';
     },
     clickOption(option) {
       this.$emit('onClickOption', option);
