@@ -1,4 +1,4 @@
-# vue-multiselect-listbox
+# vue-multiselect-dual-listbox
 
 > **Searchable Dual Select box plugin** 
 
