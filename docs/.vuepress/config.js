@@ -17,9 +17,13 @@ module.exports = {
   description: meta.description,
   base: '/vue-multiselect-listbox/',
   head,
-  plugins: {
-    '@vuepress/google-analytics': {
-      ga: 'UA-156490644-1',
-    },
-  }
+  plugins: [
+    [
+      '@vuepress/google-analytics',
+      {
+        'ga': 'UA-156490644-1'
+      }
+    ],
+    '@vuepress/register-components'
+  ]
 };
