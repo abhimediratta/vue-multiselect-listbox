@@ -9,7 +9,7 @@ let head = [
   ['meta', {name: 'description', content: meta.description}],
   ['meta', {property: 'og:url', content: meta.url}],
   ['meta', {property: 'og:title', content: meta.title}],
-  ['meta', {property: 'og:site_name', content: meta.title}],
+  ['meta', {property: 'og:site_name', content: meta.title}]
 ];
 
 module.exports = {
@@ -28,6 +28,17 @@ module.exports = {
   ],
   themeConfig: {
     repo: 'abhimediratta/vue-multiselect-listbox',
-    docsDir: 'docs'
-  }
+    docsDir: 'docs',
+    sidebar: {
+      '/': [
+        {
+          title: 'Getting Started',
+          collapsable: false,
+          children: [
+            ['guide/install', 'Installation']
+          ],
+        }
+      ]
+    }
+  },
 };
