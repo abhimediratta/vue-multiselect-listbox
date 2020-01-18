@@ -25,5 +25,9 @@ module.exports = {
       }
     ],
     '@vuepress/register-components'
-  ]
+  ],
+  themeConfig: {
+    repo: 'abhimediratta/vue-multiselect-listbox',
+    docsDir: 'docs'
+  }
 };
