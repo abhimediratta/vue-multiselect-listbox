@@ -2,7 +2,7 @@
   <div class="msl-multi-select">
     <SearchableList
       :list-items="availableOptions"
-      :selected-list-items="value"
+      :selected-list-items="selectedItems"
       :display-property="reduceDisplayProperty"
       :value-property="reduceValueProperty"
       :placeholder="searchOptionsPlaceholder"
@@ -97,7 +97,6 @@ export default {
       default() {
         return [];
       },
-      required: true,
     },
     options: {
       type: Array,

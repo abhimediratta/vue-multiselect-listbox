@@ -35,7 +35,8 @@ module.exports = {
           title: 'Getting Started',
           collapsable: false,
           children: [
-            ['guide/install', 'Installation']
+            ['guide/install', 'Installation'],
+            ['guide/options', 'List Options']
           ],
         }
       ]

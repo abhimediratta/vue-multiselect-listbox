@@ -1,5 +1,5 @@
 <template>
-  <v-multi-select-listbox 
+  <v-multiselect-listbox 
     v-model="selectedStates"
     :options="options"
     :reduce-value-property="(option) => option.abbreviation"
