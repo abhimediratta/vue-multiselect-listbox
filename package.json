@@ -55,6 +55,7 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {},
+  "homepage": "https://abhimediratta.github.io/vue-multiselect-listbox/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/abhimediratta/vue-multiselect-listbox.git"

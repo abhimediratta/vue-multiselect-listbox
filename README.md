@@ -2,6 +2,6 @@
 
 > **Searchable Dual Select box plugin** 
 
-[See demo here](https://abhimediratta.github.io/vue-multiselect-listbox/)
+*The documentation is a work-in-progress...*
 
-**Documentation coming soon...**
+See demo and documentation [here](https://abhimediratta.github.io/vue-multiselect-listbox/)
