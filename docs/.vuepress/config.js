@@ -36,7 +36,8 @@ module.exports = {
           collapsable: false,
           children: [
             ['guide/install', 'Installation'],
-            ['guide/options', 'List Options']
+            ['guide/options', 'List Options'],
+            ['guide/values', 'Selecting Values'],
           ],
         }
       ]
