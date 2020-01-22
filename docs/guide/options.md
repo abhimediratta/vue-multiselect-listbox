@@ -1,4 +1,4 @@
-## Options
+## List Options
 
 `vue-multiselect-listbox` accepts arrays, it could be an array of primitives or an array of objects
 
@@ -38,3 +38,14 @@ You can hide the select/deselect all options buttons, by default they're shown.
 
 
 
+## Style Search Input boxes
+
+You can pass a class to style the input boxes. The property to pass the class is `search-input-class`.
+
+```html
+<v-multiselect-listbox :options="[{label: 'Alabama', code: 'al'}, {label: 'California', code: 'cal'}]"
+                       :reduce-display-property="(option) => option.label"
+                       :reduce-value-property="(option) => option.code"
+                       search-input-class="custom-input-class">
+</v-multiselect-listbox>
+```
