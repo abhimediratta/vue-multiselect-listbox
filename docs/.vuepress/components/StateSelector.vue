@@ -3,7 +3,8 @@
     v-model="selectedStates"
     :options="options"
     :reduce-value-property="(option) => option.abbreviation"
-    :reduce-display-property="(option) => option.name" />
+    :reduce-display-property="(option) => option.name"
+    show-select-all-buttons />
 </template>
 
 <script>

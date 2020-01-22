@@ -39,8 +39,15 @@ module.exports = {
             ['guide/options', 'List Options'],
             ['guide/values', 'Selecting Values'],
           ],
+        },
+        {
+          title: 'Styling',
+          collapsable: false,
+          children: [
+            ['guide/css', 'CSS'],
+          ],
         }
-      ]
+      ],
     }
   },
 };
