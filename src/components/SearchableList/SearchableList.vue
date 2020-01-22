@@ -86,9 +86,7 @@ export default {
     },
     searchInputClass: {
       type: String,
-      default() {
-        return '';
-      },
+      default: '',
     },
   },
   data() {

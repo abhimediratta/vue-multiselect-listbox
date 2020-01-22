@@ -6,6 +6,7 @@
       :display-property="reduceDisplayProperty"
       :value-property="reduceValueProperty"
       :placeholder="searchOptionsPlaceholder"
+      :search-input-class="searchInputClass"
       class="msl-multi-select__list"
       @onClickOption="onOptionSelect"
     />
@@ -36,6 +37,7 @@
       :display-property="reduceDisplayProperty"
       :value-property="reduceValueProperty"
       :placeholder="selectedOptionsPlaceholder"
+      :search-input-class="searchInputClass"
       class="msl-multi-select__selected msl-multi-select__list"
       @onClickOption="onOptionRemove"
     />
@@ -131,6 +133,10 @@ export default {
     showSelectAllButtons: {
       type: Boolean,
       default: true,
+    },
+    searchInputClass: {
+      type: String,
+      default: '',
     },
   },
   data() {

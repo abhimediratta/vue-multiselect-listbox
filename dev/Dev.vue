@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <!-- <sandbox hide-help v-slot="config"> -->
-    <MultiSelect v-model="value" :options="options" :show-select-all-buttons="showSelectAll" />
+    <MultiSelect v-model="value" :options="options" :show-select-all-buttons="showSelectAll"
+      search-input-class="custom-input-class" />
     <!-- </sandbox> -->
   </div>
 </template>
