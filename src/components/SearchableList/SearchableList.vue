@@ -27,7 +27,7 @@
         v-if="noFilteredItems"
         class="msl-searchable-list__no-item"
       >
-        No items found
+        {{ noItemsFoundText }}
       </div>
     </div>
   </div>
@@ -66,9 +66,7 @@ export default {
     },
     placeholderText: {
       type: String,
-      default() {
-        return 'Search';
-      },
+      default: 'Search',
     },
     displayProperty: {
       type: Function,
@@ -80,13 +78,15 @@ export default {
     },
     noOptionsText: {
       type: String,
-      default() {
-        return 'No options';
-      },
+      default: 'No options',
     },
     searchInputClass: {
       type: String,
       default: '',
+    },
+    noItemsFoundText: {
+      type: String,
+      default: 'No options found',
     },
   },
   data() {
@@ -96,7 +96,8 @@ export default {
   },
   computed: {
     noItems() {
-      return !this.listItems || this.listItems.length < 1;
+      return (this.selectedListItems.length && this.availableItems.length < 1)
+            || (!this.listItems || this.listItems.length < 1);
     },
     noFilteredItems() {
       return this.availableItems

@@ -2,10 +2,12 @@
   <div class="msl-multi-select">
     <SearchableList
       :list-items="availableOptions"
+      :no-options-text="noOptionsText"
+      :no-items-found-text="noOptionsFoundText"
       :selected-list-items="selectedItems"
       :display-property="reduceDisplayProperty"
       :value-property="reduceValueProperty"
-      :placeholder="searchOptionsPlaceholder"
+      :placeholder-text="searchOptionsPlaceholder"
       :search-input-class="searchInputClass"
       class="msl-multi-select__list"
       @onClickOption="onOptionSelect"
@@ -33,10 +35,11 @@
 
     <SearchableList
       :list-items="selectedItems"
-      :no-options-text="'Select'"
+      :no-options-text="selectedNoOptionsText"
+      :no-items-found-text="noSelectedOptionsFoundText"
       :display-property="reduceDisplayProperty"
       :value-property="reduceValueProperty"
-      :placeholder="selectedOptionsPlaceholder"
+      :placeholder-text="selectedOptionsPlaceholder"
       :search-input-class="searchInputClass"
       class="msl-multi-select__selected msl-multi-select__list"
       @onClickOption="onOptionRemove"
@@ -129,6 +132,18 @@ export default {
     noOptionsText: {
       type: String,
       default: '',
+    },
+    selectedNoOptionsText: {
+      type: String,
+      default: 'Select',
+    },
+    noOptionsFoundText: {
+      type: String,
+      default: 'No options found',
+    },
+    noSelectedOptionsFoundText: {
+      type: String,
+      default: 'No options found',
     },
     showSelectAllButtons: {
       type: Boolean,
