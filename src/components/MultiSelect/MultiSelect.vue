@@ -159,6 +159,7 @@ export default {
       selectedItems: getSelectedItemsFromValue(this.value, this.valueProperty, this.options),
     };
   },
+
   computed: {
     availableOptions() {
       if (!this.value || !this.value.length) {
@@ -174,6 +175,13 @@ export default {
       });
     },
   },
+
+  watch: {
+    value(newValue) {
+      this.selectedItems = getSelectedItemsFromValue(newValue, this.valueProperty, this.options);
+    },
+  },
+
   methods: {
     onOptionSelect(option) {
       this.selectedItems.push(option);
