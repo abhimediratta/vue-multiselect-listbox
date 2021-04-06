@@ -2,13 +2,15 @@
   <div id="app">
     <!-- <sandbox hide-help v-slot="config"> -->
     <MultiSelect v-model="value" :options="options" :show-select-all-buttons="showSelectAll"
-      search-input-class="custom-input-class" />
+      search-input-class="custom-input-class"
+      :reduce-display-property="option => option.name"
+      :reduce-value-property="option => option.id" />
     <!-- </sandbox> -->
   </div>
 </template>
 
 <script>
-import MultiSelect from '../src/components/MultiSelect/MultiSelect';
+import MultiSelect from '../src/components/MultiSelect/MultiSelect.vue';
 
 export default {
   components: {
@@ -17,7 +19,7 @@ export default {
   data() {
     return {
       value: [],
-      options: ['Chicago', 'Wisconsin', 'Houston'],
+      options: [{ name: 'Chicago', id: 'ch' }, { name: 'Wisconsin', id: 'wi' }, { name: 'Houston', id: 'ho' }],
       showSelectAll: true,
     };
   },

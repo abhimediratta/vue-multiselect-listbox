@@ -31,11 +31,11 @@
     "cross-env": "^6.0.3",
     "css-loader": "^3.6.0",
     "cssnano": "^4.1.10",
-    "eslint": "^6.5.1",
+    "eslint": "^6.7.2",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-loader": "^3.0.4",
     "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-vue": "^5.2.3",
+    "eslint-plugin-vue": "^6.2.2",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.14.1",
@@ -54,7 +54,6 @@
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^4.2.2"
   },
-  "dependencies": {},
   "homepage": "https://abhimediratta.github.io/vue-multiselect-listbox/",
   "repository": {
     "type": "git",

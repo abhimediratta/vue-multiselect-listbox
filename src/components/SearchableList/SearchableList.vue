@@ -10,7 +10,8 @@
       <div
         v-for="(option, index) in filteredListItems"
         :key="index"
-        class="multi-select-option msl-searchable-list__item"
+        class="msl-searchable-list__item"
+        :class="{'msl-searchable-list__item--disabled': option.disabled}"
         @click="clickOption(option)"
       >
         {{ getOptionDisplay(option, displayProperty) }}

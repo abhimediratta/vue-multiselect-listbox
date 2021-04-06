@@ -52,7 +52,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faExchangeAlt, faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
 
-import SearchableList from '../SearchableList/SearchableList';
+import SearchableList from '../SearchableList/SearchableList.vue';
 
 library.add(faExchangeAlt, faAngleDoubleLeft, faAngleDoubleRight);
 
@@ -62,7 +62,13 @@ function getSelectedItemsFromValue(values, valueProperty, availableOptions) {
 
     values.forEach((value) => {
       const item = availableOptions.find(function findOptions(option) {
-        return option[valueProperty] === value;
+        if (typeof valueProperty === 'string') {
+          return option[valueProperty] === value;
+        } else if (typeof valueProperty === 'function') { // eslint-disable-line
+          return valueProperty(option) === value;
+        }
+
+        return option;
       });
       selectedItems.push(item);
     });
@@ -74,7 +80,13 @@ function getSelectedItemsFromValue(values, valueProperty, availableOptions) {
 }
 
 function getValueFromOption(valueProperty, option) {
-  return valueProperty ? option[valueProperty] : option;
+  if (typeof valueProperty === 'string') {
+    return option[valueProperty];
+  } else if (typeof valueProperty === 'function') { // eslint-disable-line
+    return valueProperty(option);
+  }
+
+  return option;
 }
 
 function getValuesFromOptions(valueProperty, options) {
@@ -156,7 +168,7 @@ export default {
   },
   data() {
     return {
-      selectedItems: getSelectedItemsFromValue(this.value, this.valueProperty, this.options),
+      selectedItems: getSelectedItemsFromValue(this.value, this.reduceValueProperty, this.options),
     };
   },
 
@@ -167,8 +179,8 @@ export default {
       }
 
       return this.options.filter((option) => {
-        if (this.valueProperty) {
-          return this.value.indexOf(option[this.valueProperty]) < 0;
+        if (this.reduceValueProperty) {
+          return this.value.indexOf(getValueFromOption(this.reduceValueProperty, option)) < 0;
         }
 
         return !this.value.find((value) => value === option);
@@ -178,14 +190,16 @@ export default {
 
   watch: {
     value(newValue) {
-      this.selectedItems = getSelectedItemsFromValue(newValue, this.valueProperty, this.options);
+      this.selectedItems = getSelectedItemsFromValue(
+        newValue, this.reduceValueProperty, this.options,
+      );
     },
   },
 
   methods: {
     onOptionSelect(option) {
       this.selectedItems.push(option);
-      const items = [...this.value, getValueFromOption(this.valueProperty, option)];
+      const items = [...this.value, getValueFromOption(this.reduceValueProperty, option)];
       this.$emit('input', items);
       this.$emit('change', items);
     },
@@ -194,8 +208,10 @@ export default {
       const { selectedItems } = this;
 
       let valueIndex = items.findIndex((item) => {
-        if (this.valueProperty) {
-          return item && option && (item === option[this.valueProperty]);
+        if (this.reduceValueProperty) {
+          return item && option
+          && (getValueFromOption(this.reduceValueProperty, item)
+              === getValueFromOption(this.reduceValueProperty, option));
         }
 
         return item === option;
@@ -204,8 +220,10 @@ export default {
       items.splice(valueIndex, 1);
 
       valueIndex = selectedItems.findIndex((item) => {
-        if (this.valueProperty) {
-          return item && option && (item[this.valueProperty] === option[this.valueProperty]);
+        if (this.reduceValueProperty) {
+          return item && option
+          && getValueFromOption(this.reduceValueProperty, item)
+          === getValueFromOption(this.reduceValueProperty, option);
         }
 
         return item === option;
@@ -223,7 +241,7 @@ export default {
     onSelectAllOptions() {
       this.selectedItems = [...this.options];
 
-      const selectedValues = getValuesFromOptions(this.valueProperty, this.options);
+      const selectedValues = getValuesFromOptions(this.reduceValueProperty, this.options);
       this.$emit('input', selectedValues);
       this.$emit('change', selectedValues);
     },
