@@ -3,7 +3,6 @@ const { VueLoaderPlugin } = require('vue-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-
 const env = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
 const devtool = env === 'production' ? 'source-map' : 'eval-source-map';
@@ -61,6 +60,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'vue-multi-select-listbox.css',
     }),
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
   ],
 };

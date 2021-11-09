@@ -70,6 +70,7 @@ function getSelectedItemsFromValue(values, valueProperty, availableOptions) {
 
         return option;
       });
+
       selectedItems.push(item);
     });
 
@@ -210,7 +211,7 @@ export default {
       let valueIndex = items.findIndex((item) => {
         if (this.reduceValueProperty) {
           return item && option
-          && (getValueFromOption(this.reduceValueProperty, item)
+          && (item
               === getValueFromOption(this.reduceValueProperty, option));
         }
 
