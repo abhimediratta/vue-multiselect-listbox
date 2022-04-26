@@ -36,6 +36,23 @@ You can hide the select/deselect all options buttons, by default they're shown.
 
 <v-multiselect-listbox style="margin-bottom: 40px;" :options="[{label: 'Alabama', code: 'al'}, {label: 'California', code: 'cal'}]" :reduce-display-property="(option) => option.label" :reduce-value-property="(option) => option.code" :show-select-all-buttons="false"></v-multiselect-listbox>
 
+## Highlight Difference from the original input
+
+You enable highlighting different options removed or added from the original copy. The boolean flag is `highlight-diff`.
+
+```html
+<v-multiselect-listbox :options="[{label: 'Alabama', code: 'al'}, {label: 'California', code: 'cal'}]"
+                       :reduce-display-property="(option) => option.label"
+                       :reduce-value-property="(option) => option.code"
+                       search-input-class="custom-input-class"
+                       highlight-diff>
+</v-multiselect-listbox>
+```
+
+You can also pass CSS classes for highlighting added or removed items. These classes are `highlightAddedClass` and `highlightRemovedClass`.
+
+<HighlightDiffExample />
+
 
 ## Search Input Placeholder
 
