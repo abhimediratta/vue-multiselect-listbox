@@ -11,10 +11,10 @@
         v-for="(option, index) in filteredListItems"
         :key="index"
         class="msl-searchable-list__item"
-        :class="{'msl-searchable-list__item--disabled': option.disabled, [highlightClass]: highlightedItemsMap[getValue(option)] }"
+        :class="{'msl-searchable-list__item--disabled': option.disabled, [highlightClass]: highlightDiff && highlightedItemsMap[getValue(option)] }"
         @click="clickOption(option)"
       >
-        {{ getOptionDisplay(option, displayProperty) }}
+        {{ getOptionDisplay(option) }}
       </div>
 
       <div
@@ -36,6 +36,7 @@
 
 <script>
 import debounce from '../../utils/debounce';
+import isEmptyObject from '../../utils/isEmptyObject';
 
 function getValue(item, valueProperty) {
   return valueProperty(item);
@@ -95,6 +96,10 @@ export default {
       type: String,
       default: 'No options found',
     },
+    highlightDiff: {
+      type: Boolean,
+      default: false,
+    },
     highlightClass: {
       type: String,
       default: '',
@@ -132,32 +137,42 @@ export default {
 
     availableItems() {
       const selectedItemsMap = convertArrayToMap(this.selectedListItems, this.valueProperty);
+      let finalItems = [...this.listItems];
 
-      return this.listItems.filter((item) => {
-        const value = getValue(item, this.valueProperty);
+      if (!isEmptyObject(selectedItemsMap)) {
+        finalItems = this.listItems.filter((item) => {
+          const value = getValue(item, this.valueProperty);
 
-        const isNotSelected = !selectedItemsMap[value];
+          const isNotSelected = !selectedItemsMap[value];
 
-        return isNotSelected;
+          return isNotSelected;
+        });
+      }
+
+      return finalItems.sort((a, b) => {
+        const aDisplayName = this.getOptionDisplay(a);
+        const bDisplayName = this.getOptionDisplay(b);
+
+        return aDisplayName.localeCompare(bDisplayName);
       });
     },
 
     filteredListItems() {
       if (this.searchText != null && this.searchText !== '') {
         return this.availableItems.filter(function filterItem(item) {
-          const display = this.getOptionDisplay(item, this.displayProperty);
+          const display = this.getOptionDisplay(item);
 
           return display && display.toLowerCase().includes(this.searchText.toLowerCase());
         }.bind(this));
       }
 
-      return this.availableItems || this.listItems;
+      return this.availableItems;
     },
   },
 
   methods: {
-    getOptionDisplay(option, displayProperty) {
-      return displayProperty(option) || '';
+    getOptionDisplay(option) {
+      return this.displayProperty(option) || '';
     },
 
     getValue(option) {

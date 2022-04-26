@@ -12,6 +12,7 @@
       :highlight-class="highlightRemovedClass"
       :highlight-items="newlyRemovedItems"
       class="msl-multi-select__list"
+      :highlight-diff="highlightDiff"
       @onClickOption="onOptionSelect"
     />
 
@@ -45,6 +46,7 @@
       :search-input-class="searchInputClass"
       :highlight-class="highlightAddedClass"
       :highlight-items="newlyAddedItems"
+      :highlight-diff="highlightDiff"
       class="msl-multi-select__selected msl-multi-select__list"
       @onClickOption="onOptionRemove"
     />
