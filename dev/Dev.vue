@@ -4,7 +4,8 @@
     <MultiSelect v-model="value" :options="options" :show-select-all-buttons="showSelectAll"
       search-input-class="custom-input-class"
       :reduce-display-property="option => option.name"
-      :reduce-value-property="option => option.id" />
+      :reduce-value-property="option => option.id"
+      highlight-diff />
     <!-- </sandbox> -->
   </div>
 </template>
@@ -18,7 +19,8 @@ export default {
   },
   data() {
     return {
-      value: [],
+      value: ['ch'],
+      stringOptions: ['Chicago', 'Wisconsin', 'Houston'],
       options: [{ name: 'Chicago', id: 'ch' }, { name: 'Wisconsin', id: 'wi' }, { name: 'Houston', id: 'ho' }],
       showSelectAll: true,
     };

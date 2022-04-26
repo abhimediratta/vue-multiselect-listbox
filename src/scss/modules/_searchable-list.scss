@@ -30,3 +30,14 @@
     color: $msl-multi-select-item-hover-font-color;
   }
 }
+
+
+.msl-searchable-list__item--removed {
+  background: red;
+  color: #fff;
+}
+
+.msl-searchable-list__item--added {
+  background: green;
+  color: #fff;
+}

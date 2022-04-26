@@ -12,7 +12,7 @@
         "SharedArrayBuffer": "readonly"
     },
     "parserOptions": {
-        "ecmaVersion": 2018,
+        "ecmaVersion": 2020,
         "sourceType": "module"
     },
     "plugins": [
@@ -21,6 +21,7 @@
     "rules": {
         "prefer-arrow-callback": 0,
         "eqeqeq": 0,
-        "no-param-reassign": 0
+        "no-param-reassign": 0,
+        "max-len": 0
     }
 }
