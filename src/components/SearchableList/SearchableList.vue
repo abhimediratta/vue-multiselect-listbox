@@ -11,7 +11,7 @@
         v-for="(option, index) in filteredListItems"
         :key="index"
         class="msl-searchable-list__item"
-        :class="{'msl-searchable-list__item--disabled': option.disabled}"
+        :class="{'msl-searchable-list__item--disabled': option.disabled, [highlightClass]: highlightedItemsMap[getValue(option)] }"
         @click="clickOption(option)"
       >
         {{ getOptionDisplay(option, displayProperty) }}
@@ -65,6 +65,12 @@ export default {
         return [];
       },
     },
+    highlightItems: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
     placeholderText: {
       type: String,
       default: 'Search',
@@ -89,6 +95,10 @@ export default {
       type: String,
       default: 'No options found',
     },
+    highlightClass: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -100,11 +110,13 @@ export default {
       return (this.selectedListItems.length && this.availableItems.length < 1)
             || (!this.listItems || this.listItems.length < 1);
     },
+
     noFilteredItems() {
       return this.availableItems
       && this.availableItems.length > 0
       && (!this.filteredListItems || this.filteredListItems.length < 1);
     },
+
     debouncedSearchText: {
       get() {
         return this.searchText;
@@ -113,33 +125,45 @@ export default {
         this.searchText = newValue;
       }, 500),
     },
-    availableItems() {
-      if (this.listItems && this.selectedListItems) {
-        const selectedItemsMap = convertArrayToMap(this.selectedListItems, this.valueProperty);
 
-        return this.listItems.filter((item) => {
-          const value = getValue(item, this.valueProperty);
-          return !selectedItemsMap[value];
-        });
-      }
-
-      return this.listItems;
+    highlightedItemsMap() {
+      return convertArrayToMap(this.highlightItems, this.valueProperty);
     },
+
+    availableItems() {
+      const selectedItemsMap = convertArrayToMap(this.selectedListItems, this.valueProperty);
+
+      return this.listItems.filter((item) => {
+        const value = getValue(item, this.valueProperty);
+
+        const isNotSelected = !selectedItemsMap[value];
+
+        return isNotSelected;
+      });
+    },
+
     filteredListItems() {
-      if (this.searchText !== undefined) {
+      if (this.searchText != null && this.searchText !== '') {
         return this.availableItems.filter(function filterItem(item) {
           const display = this.getOptionDisplay(item, this.displayProperty);
 
           return display && display.toLowerCase().includes(this.searchText.toLowerCase());
         }.bind(this));
       }
+
       return this.availableItems || this.listItems;
     },
   },
+
   methods: {
     getOptionDisplay(option, displayProperty) {
       return displayProperty(option) || '';
     },
+
+    getValue(option) {
+      return getValue(option, this.valueProperty);
+    },
+
     clickOption(option) {
       this.$emit('onClickOption', option);
     },
