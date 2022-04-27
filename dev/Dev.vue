@@ -5,6 +5,7 @@
       search-input-class="custom-input-class"
       :reduce-display-property="option => option.name"
       :reduce-value-property="option => option.id"
+      ref="multi"
       highlight-diff />
     <!-- </sandbox> -->
   </div>
@@ -17,6 +18,16 @@ export default {
   components: {
     MultiSelect,
   },
+
+  created() {
+    console.log('refs', this.$refs);
+    setTimeout(() => {
+      this.value = ['ch', 'wi'];
+
+      this.$refs.multi.resetOriginalCopy();
+    }, 1000);
+  },
+
   data() {
     return {
       value: [],

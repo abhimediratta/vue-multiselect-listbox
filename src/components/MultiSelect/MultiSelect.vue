@@ -331,6 +331,12 @@ export default {
         newUnselected: this.newlyRemovedItems.map((i) => this.reduceValueProperty(i)),
       });
     },
+
+    resetOriginalCopy() {
+      setTimeout(() => {
+        this.originalValueCopy = [...this.value];
+      }, 0);
+    },
   },
 };
 
