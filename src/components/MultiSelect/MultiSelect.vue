@@ -310,6 +310,11 @@ export default {
           this.newlyAddedItems.push(option);
         }
       });
+
+      this.$emit('diff-changed', {
+        newSelected: this.newlyAddedItems,
+        newUnselected: this.newlyRemovedItems,
+      });
     },
 
     addToNewlyRemovedItems(options) {
@@ -319,6 +324,11 @@ export default {
         if (optionIndex > -1) {
           this.newlyRemovedItems.push(option);
         }
+      });
+
+      this.$emit('diff-changed', {
+        newSelected: this.newlyAddedItems,
+        newUnselected: this.newlyRemovedItems,
       });
     },
   },
