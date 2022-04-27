@@ -249,6 +249,9 @@ export default {
 
       // Only if this option is enabled
       this.addToNewlyAddedItems([option]);
+      this.removeFromNewlyRemovedItems([option]);
+
+      this.emitChangedItems();
 
       this.$emit('input', items);
       this.$emit('change', items);
@@ -274,10 +277,13 @@ export default {
       const removedItems = selectedItems.splice(valueIndex, 1);
 
       this.addToNewlyRemovedItems(removedItems);
+      this.removeFromNewlyAddedItems([option]);
 
       // Copy the array because Vue doesn't react on the array modification by lodash
       // https://vuejs.org/v2/guide/list.html#Array-Change-Detection
       this.selectedItems = [...selectedItems];
+
+      this.emitChangedItems();
 
       this.$emit('input', items);
       this.$emit('change', items);
@@ -291,18 +297,26 @@ export default {
       this.$emit('change', selectedValues);
 
       this.addToNewlyAddedItems(this.selectedItems);
+      this.addToNewlyRemovedItems([], true);
+
+      this.emitChangedItems();
     },
 
     onUnselectAllOptions() {
       this.addToNewlyRemovedItems(this.selectedItems);
+      this.addToNewlyAddedItems([], true);
 
       this.selectedItems = [];
-
+      this.emitChangedItems();
       this.$emit('input', []);
       this.$emit('change', []);
     },
 
-    addToNewlyAddedItems(options) {
+    addToNewlyAddedItems(options, reset = false) {
+      if (reset) {
+        this.newlyAddedItems = [];
+      }
+
       options.forEach((option) => {
         const optionIndex = getIndexFromVModelForOption(this.originalValueCopy, option, this.reduceValueProperty);
 
@@ -310,11 +324,13 @@ export default {
           this.newlyAddedItems.push(option);
         }
       });
-
-      this.emitChangedItems();
     },
 
-    addToNewlyRemovedItems(options) {
+    addToNewlyRemovedItems(options, reset = false) {
+      if (reset) {
+        this.newlyRemovedItems = [];
+      }
+
       options.forEach((option) => {
         const optionIndex = getIndexFromVModelForOption(this.originalValueCopy, option, this.reduceValueProperty);
 
@@ -322,8 +338,26 @@ export default {
           this.newlyRemovedItems.push(option);
         }
       });
+    },
 
-      this.emitChangedItems();
+    removeFromNewlyRemovedItems(options = []) {
+      options.forEach((option) => {
+        const optionIndex = this.newlyRemovedItems.findIndex((o) => o === option);
+
+        if (optionIndex > -1) {
+          this.newlyRemovedItems.splice(optionIndex, 1);
+        }
+      });
+    },
+
+    removeFromNewlyAddedItems(options = []) {
+      options.forEach((option) => {
+        const optionIndex = this.newlyAddedItems.findIndex((o) => o === option);
+
+        if (optionIndex > -1) {
+          this.newlyAddedItems.splice(optionIndex, 1);
+        }
+      });
     },
 
     emitChangedItems() {
