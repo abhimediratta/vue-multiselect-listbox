@@ -327,8 +327,8 @@ export default {
       });
 
       this.$emit('diff-changed', {
-        newSelected: this.newlyAddedItems,
-        newUnselected: this.newlyRemovedItems,
+        newSelected: this.newlyAddedItems.map((i) => this.reduceValueProperty(i)),
+        newUnselected: this.newlyRemovedItems.map((i) => this.reduceValueProperty(i)),
       });
     },
   },

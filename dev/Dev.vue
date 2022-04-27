@@ -19,7 +19,7 @@ export default {
   },
   data() {
     return {
-      value: ['ch'],
+      value: [],
       stringOptions: ['Chicago', 'Wisconsin', 'Houston'],
       options: [{ name: 'Chicago', id: 'ch' }, { name: 'Wisconsin', id: 'wi' }, { name: 'Houston', id: 'ho' }],
       showSelectAll: true,
