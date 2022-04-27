@@ -6,7 +6,8 @@
       :reduce-display-property="option => option.name"
       :reduce-value-property="option => option.id"
       ref="multi"
-      highlight-diff />
+      highlight-diff
+      @diff-changed="handleChange" />
     <!-- </sandbox> -->
   </div>
 </template>
@@ -20,7 +21,6 @@ export default {
   },
 
   created() {
-    console.log('refs', this.$refs);
     setTimeout(() => {
       this.value = ['ch', 'wi'];
 
@@ -35,6 +35,12 @@ export default {
       options: [{ name: 'Chicago', id: 'ch' }, { name: 'Wisconsin', id: 'wi' }, { name: 'Houston', id: 'ho' }],
       showSelectAll: true,
     };
+  },
+
+  methods: {
+    handleChange(changes) {
+      console.log('Changes', changes);
+    },
   },
 };
 </script>

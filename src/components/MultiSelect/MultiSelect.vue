@@ -311,10 +311,7 @@ export default {
         }
       });
 
-      this.$emit('diff-changed', {
-        newSelected: this.newlyAddedItems,
-        newUnselected: this.newlyRemovedItems,
-      });
+      this.emitChangedItems();
     },
 
     addToNewlyRemovedItems(options) {
@@ -326,6 +323,10 @@ export default {
         }
       });
 
+      this.emitChangedItems();
+    },
+
+    emitChangedItems() {
       this.$emit('diff-changed', {
         newSelected: this.newlyAddedItems.map((i) => this.reduceValueProperty(i)),
         newUnselected: this.newlyRemovedItems.map((i) => this.reduceValueProperty(i)),
