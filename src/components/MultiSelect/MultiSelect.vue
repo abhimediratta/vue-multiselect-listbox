@@ -370,6 +370,9 @@ export default {
     resetOriginalCopy() {
       setTimeout(() => {
         this.originalValueCopy = [...this.value];
+        this.newlyAddedItems = [];
+        this.newlyRemovedItems = [];
+        this.emitChangedItems();
       }, 0);
     },
   },
