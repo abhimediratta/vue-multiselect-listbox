@@ -119,15 +119,14 @@ function getIndexFromVModelForOption(items, option, reduceValueProperty) {
 
 export default {
   name: 'MultiSelect',
+
   components: {
     SearchableList,
     FontAwesomeIcon,
   },
-  model: {
-    prop: 'value',
-  },
+
   props: {
-    value: {
+    modelValue: {
       type: Array,
       default() {
         return [];
@@ -197,9 +196,15 @@ export default {
     },
   },
 
+  emits: [
+    'update:modelValue',
+    'change',
+    'diff-changed',
+  ],
+
   data() {
     return {
-      selectedItems: getSelectedItemsFromValue(this.value, this.reduceValueProperty, this.options),
+      selectedItems: getSelectedItemsFromValue(this.modelValue, this.reduceValueProperty, this.options),
       originalValueCopy: [],
 
       // This is for tracking items which have just been removed
@@ -212,22 +217,22 @@ export default {
 
   computed: {
     availableOptions() {
-      if (!this.value || !this.value.length) {
+      if (!this.modelValue || !this.modelValue.length) {
         return [...this.options];
       }
 
       return this.options.filter((option) => {
         if (this.reduceValueProperty) {
-          return this.value.indexOf(getValueFromOption(this.reduceValueProperty, option)) < 0;
+          return this.modelValue.indexOf(getValueFromOption(this.reduceValueProperty, option)) < 0;
         }
 
-        return !this.value.find((value) => value === option);
+        return !this.modelValue.find((value) => value === option);
       });
     },
   },
 
   watch: {
-    value: {
+    modelValue: {
       immediate: true,
       handler(newValue, oldValue) {
         if (newValue?.length && !oldValue && this.highlightDiff) {
@@ -245,7 +250,7 @@ export default {
     onOptionSelect(option) {
       this.selectedItems.push(option);
 
-      const items = [...this.value, getValueFromOption(this.reduceValueProperty, option)];
+      const items = [...this.modelValue, getValueFromOption(this.reduceValueProperty, option)];
 
       // Only if this option is enabled
       this.addToNewlyAddedItems([option]);
@@ -253,12 +258,12 @@ export default {
 
       this.emitChangedItems();
 
-      this.$emit('input', items);
+      this.$emit('update:modelValue', items);
       this.$emit('change', items);
     },
 
     onOptionRemove(option) {
-      const items = [...this.value];
+      const items = [...this.modelValue];
       const { selectedItems } = this;
 
       let valueIndex = getIndexFromVModelForOption(items, option, this.reduceValueProperty);
@@ -285,7 +290,7 @@ export default {
 
       this.emitChangedItems();
 
-      this.$emit('input', items);
+      this.$emit('update:modelValue', items);
       this.$emit('change', items);
     },
 
@@ -293,7 +298,7 @@ export default {
       this.selectedItems = [...this.options];
 
       const selectedValues = getValuesFromOptions(this.reduceValueProperty, this.options);
-      this.$emit('input', selectedValues);
+      this.$emit('update:modelValue', selectedValues);
       this.$emit('change', selectedValues);
 
       this.addToNewlyAddedItems(this.selectedItems);
@@ -308,7 +313,7 @@ export default {
 
       this.selectedItems = [];
       this.emitChangedItems();
-      this.$emit('input', []);
+      this.$emit('update:modelValue', []);
       this.$emit('change', []);
     },
 
@@ -369,7 +374,7 @@ export default {
 
     resetOriginalCopy() {
       setTimeout(() => {
-        this.originalValueCopy = [...this.value];
+        this.originalValueCopy = [...this.modelValue];
         this.newlyAddedItems = [];
         this.newlyRemovedItems = [];
         this.emitChangedItems();

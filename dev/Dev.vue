@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <MultiSelect v-show="showWidget" v-model="value" :options="options" :show-select-all-buttons="showSelectAll"
+    <MultiSelect v-show="showWidget"
+      v-model="value"
+      :options="options"
+      :show-select-all-buttons="showSelectAll"
       search-input-class="custom-input-class"
       :reduce-display-property="option => option.name"
       :reduce-value-property="option => option.id"
@@ -18,12 +21,8 @@ export default {
     MultiSelect,
   },
 
-  created() {
-    setTimeout(() => {
-      this.value = ['ch', 'wi'];
-
-      this.$refs.multi.resetOriginalCopy();
-    }, 1000);
+  mounted() {
+    this.value = ['ch', 'wi'];
   },
 
   data() {
