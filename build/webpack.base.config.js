@@ -33,6 +33,11 @@ module.exports = {
         loader: 'vue-loader',
       },
       {
+        test: /\.ts$/,
+        loader: 'ts-loader',
+        options: { appendTsSuffixTo: [/\.vue$/] }
+      },
+      {
         test: /\.js$/,
         loader: 'babel-loader',
         include: path.resolve(__dirname, '../src'),

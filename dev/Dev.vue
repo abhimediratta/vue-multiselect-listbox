@@ -21,7 +21,7 @@ export default {
     MultiSelect,
   },
 
-  mounted() {
+  created() {
     this.value = ['ch', 'wi'];
   },
 
