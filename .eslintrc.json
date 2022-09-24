@@ -4,8 +4,8 @@
     "es6": true
   },
   "extends": [
-    "plugin:vue/essential",
-    "airbnb-base",
+    "plugin:vue/vue3-essential",
+    "@vue/eslint-config-airbnb",
     "plugin:@typescript-eslint/eslint-recommended"
   ],
   "globals": {
@@ -40,6 +40,14 @@
         "ts": "never",
         "tsx": "never"
       }
-   ]
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "projectDependencies": false
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-unused-vars": "off"
   }
 }

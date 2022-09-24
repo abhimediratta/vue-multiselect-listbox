@@ -181,7 +181,7 @@ export default {
     },
 
     clickOption(option) {
-      this.$emit('onClickOption', option);
+      this.$emit('on-click-option', option);
     },
   },
 };

@@ -48,7 +48,7 @@
       :highlight-items="newlyAddedItems"
       :highlight-diff="highlightDiff"
       class="msl-multi-select__selected msl-multi-select__list"
-      @onClickOption="onOptionRemove"
+      @on-click-option="onOptionSelect"
     />
   </div>
 </template>
