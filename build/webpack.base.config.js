@@ -35,7 +35,7 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: 'ts-loader',
-        options: { appendTsSuffixTo: [/\.vue$/] }
+        options: { appendTsSuffixTo: [/\.vue$/] },
       },
       {
         test: /\.js$/,
@@ -65,6 +65,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'vue-multi-select-listbox.css',
     }),
-    // new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin(),
   ],
 };

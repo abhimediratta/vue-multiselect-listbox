@@ -52,6 +52,7 @@ function convertArrayToMap(items, valueProperty) {
 
 export default {
   name: 'SearchableList',
+
   props: {
     listItems: {
       type: Array,

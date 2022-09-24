@@ -1,27 +1,45 @@
 {
-    "env": {
-        "browser": true,
-        "es6": true
-    },
-    "extends": [
-        "plugin:vue/essential",
-        "airbnb-base"
-    ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
-    "parserOptions": {
-        "ecmaVersion": 2020,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "vue"
-    ],
-    "rules": {
-        "prefer-arrow-callback": 0,
-        "eqeqeq": 0,
-        "no-param-reassign": 0,
-        "max-len": 0
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "plugin:vue/essential",
+    "airbnb-base",
+    "plugin:@typescript-eslint/eslint-recommended"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "extraFileExtensions": [".vue"],
+    "parser": "@typescript-eslint/parser"
+  },
+  "plugins": ["vue", "@typescript-eslint"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".ts", ".d.ts"]
+      }
     }
+  },
+  "rules": {
+    "prefer-arrow-callback": 0,
+    "eqeqeq": 0,
+    "no-param-reassign": 0,
+    "max-len": 0,
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+   ]
+  }
 }
