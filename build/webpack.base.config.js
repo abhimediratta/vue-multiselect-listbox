@@ -49,7 +49,7 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        loader: [
+        use: [
           extractOrInjectStyles,
           'css-loader',
           'postcss-loader',

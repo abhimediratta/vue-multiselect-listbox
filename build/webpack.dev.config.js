@@ -1,4 +1,4 @@
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const baseWebpackConfig = require('./webpack.base.config');
 
@@ -11,10 +11,8 @@ module.exports = merge(baseWebpackConfig, {
     }),
   ],
   devServer: {
-    hot: true,
-    hotOnly: true,
+    hot: "only",
     open: true,
-    inline: true,
     port: 8085
   },
 });

@@ -58,7 +58,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faExchangeAlt, faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
 
-import SearchableList from '../SearchableList/SearchableList.vue';
+import SearchableList from '../SearchableList-v3.vue';
 
 library.add(faExchangeAlt, faAngleDoubleLeft, faAngleDoubleRight);
 

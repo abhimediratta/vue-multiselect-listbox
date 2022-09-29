@@ -87,21 +87,21 @@ const filteredListItems = computed(() => {
   return availableItems.value;
 });
 
-const noItems = () => {
+const noItems = computed(() => {
   return (
     (props.selectedListItems.length && availableItems.value.length < 1) ||
     !props.listItems ||
     props.listItems.length < 1
   );
-};
+});
 
-const noFilteredItems = () => {
+const noFilteredItems = computed(() => {
   return (
     availableItems &&
     availableItems.value.length > 0 &&
     (!filteredListItems || filteredListItems.value.length < 1)
   );
-};
+});
 
 const highlightedItemsMap = computed(() => {
   return convertArrayToMap(props.highlightItems, props.valueProperty);
@@ -126,7 +126,7 @@ const clickOption = (option: ListItem) => {
         :key="index"
         class="msl-searchable-list__item"
         :class="{
-          'msl-searchable-list__item--disabled': option.disabled,
+          'msl-searchable-list__item--disabled': typeof option === 'object' && option.disabled,
           [highlightClass]:
             highlightDiff && highlightedItemsMap[getValueFromOption(option)],
         }"
