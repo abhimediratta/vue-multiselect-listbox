@@ -21,8 +21,9 @@ module.exports = {
     filename: '[name].js',
   },
   resolve: {
-    extensions: ['.js', '.vue'],
+    extensions: ['.js', '.vue', '.ts'],
     alias: {
+      '@': path.resolve(__dirname, 'src/'),
       components: path.resolve(__dirname, 'src/components/'),
       utils: path.resolve(__dirname, 'src/utils/'),
     },
@@ -62,11 +63,13 @@ module.exports = {
     ],
   },
   plugins: [
-    new ESLintPlugin(),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: 'vue-multi-select-listbox.css',
     }),
     new BundleAnalyzerPlugin(),
+    new ESLintPlugin({
+      extensions: ['ts', 'vue', 'js']
+    }),
   ],
 };

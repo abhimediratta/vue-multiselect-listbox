@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import useDebouncedRef from 'src/composables/useDebouncedRef';
+import useDebouncedRef from '@/composables/useDebouncedRef';
 import convertArrayToMap, { getValue } from 'utils/convertArrayToMap';
-import isEmptyObject from 'utils/isEmptyObject';
+import isEmptyObject from '@/utils/isEmptyObject';
 import { computed, Ref, ref } from 'vue';
 import { ListItem, ItemCallback } from './main';
 
