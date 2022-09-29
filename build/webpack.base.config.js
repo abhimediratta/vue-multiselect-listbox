@@ -1,5 +1,6 @@
 const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
@@ -61,6 +62,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new ESLintPlugin(),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: 'vue-multi-select-listbox.css',
