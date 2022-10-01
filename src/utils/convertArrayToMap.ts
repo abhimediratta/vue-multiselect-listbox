@@ -1,6 +1,6 @@
 import { ItemCallback, ListItem } from "components/main";
 
-export function getValue(item, valueProperty? : ItemCallback) {
+export function getValue(item, valueProperty : ItemCallback) {
   return valueProperty(item);
 }
 

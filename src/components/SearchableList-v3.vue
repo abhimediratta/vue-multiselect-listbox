@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import convertArrayToMap, { getValue } from '../utils/convertArrayToMap';
 import { computed, Ref } from 'vue';
-import isEmptyObject from '../utils/isEmptyObject';
-import useDebouncedRef from '../composables/useDebouncedRef';
+import isEmptyObject from 'utils/isEmptyObject';
+import useDebouncedRef from '@/composables/useDebouncedRef';
 import { ListItem, ItemCallback } from './main';
 
 interface Props {
