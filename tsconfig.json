@@ -1,5 +1,16 @@
 {
   "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": false,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom"],
+    "baseUrl": ".",
+    "allowJs": true,
     "paths": {
       "@/*": [
         "./src/*"
@@ -7,14 +18,15 @@
       "components/*": ["./src/components/*"],
       "utils/*": ["./src/utils/*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
+    "types": [
+      "webpack-env"
     ]
   },
   "exclude": [
     "node_modules"
+  ],
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.vue"
   ]
 }

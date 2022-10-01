@@ -13,7 +13,7 @@
       :highlight-items="newlyRemovedItems"
       class="msl-multi-select__list"
       :highlight-diff="highlightDiff"
-      @onClickOption="onOptionSelect"
+      @on-click-option="onOptionSelect"
     />
 
     <div class="msl-multi-select__actions">
@@ -25,7 +25,10 @@
         <font-awesome-icon icon="angle-double-right" />
       </a>
 
-      <font-awesome-icon icon="exchange-alt" class="multi-select__action-icon" />
+      <font-awesome-icon
+        icon="exchange-alt"
+        class="multi-select__action-icon"
+      />
 
       <a
         class="msl-multi-select__action msl-multi-select__action-unselect-all"

@@ -1,53 +1,38 @@
 {
+  "root": true,
   "env": {
     "browser": true,
-    "es6": true
+    "es2021": true,
+    "node": true
   },
   "extends": [
-    "plugin:vue/vue3-essential",
-    "@vue/eslint-config-airbnb",
-    "plugin:@typescript-eslint/eslint-recommended"
+    "eslint:recommended",
+    "plugin:vue/vue3-recommended",
+    "@vue/typescript/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
   ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
+  "parser": "vue-eslint-parser",
   "parserOptions": {
-    "ecmaVersion": 2020,
     "sourceType": "module",
-    "extraFileExtensions": [".vue"],
     "parser": "@typescript-eslint/parser"
   },
   "plugins": ["vue", "@typescript-eslint"],
   "settings": {
     "import/resolver": {
-      "node": {
-        "extensions": [".ts", ".d.ts"]
-      }
+      "typescript": {}
     }
   },
   "rules": {
-    "prefer-arrow-callback": 0,
-    "eqeqeq": 0,
-    "no-param-reassign": 0,
-    "max-len": 0,
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "projectDependencies": false
-      }
-    ],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "@typescript-eslint/no-unused-vars": "error",
-    "no-unused-vars": "off"
+    "no-unused-vars": "off",
+    "vue/multi-word-component-names": ["error", {
+      "ignores": ["Dev"]
+    }]
   }
 }

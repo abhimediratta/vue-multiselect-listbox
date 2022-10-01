@@ -1,15 +1,17 @@
 <template>
   <div id="app">
-    <MultiSelect v-show="showWidget"
+    <MultiSelect
+      v-show="showWidget"
+      ref="multi"
       v-model="value"
       :options="options"
       :show-select-all-buttons="showSelectAll"
       search-input-class="custom-input-class"
       :reduce-display-property="option => option.name"
       :reduce-value-property="option => option.id"
-      ref="multi"
       highlight-diff
-      @diff-changed="handleChange" />
+      @diff-changed="handleChange"
+    />
   </div>
 </template>
 
@@ -21,10 +23,6 @@ export default {
     MultiSelect,
   },
 
-  created() {
-    this.value = ['ch', 'wi'];
-  },
-
   data() {
     return {
       value: [],
@@ -33,6 +31,10 @@ export default {
       showSelectAll: true,
       showWidget: true,
     };
+  },
+
+  created() {
+    this.value = ['ch', 'wi'];
   },
 
   methods: {

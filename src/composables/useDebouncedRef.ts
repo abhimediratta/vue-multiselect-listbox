@@ -1,4 +1,4 @@
-import debounce from 'utils/debounce';
+import debounce from '../utils/debounce';
 import { customRef, ref } from 'vue';
 
 const useDebouncedRef = (initialValue: string, delay: number) => {
