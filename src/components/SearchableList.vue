@@ -7,7 +7,7 @@ import { ListItem, ItemCallback } from './main';
 
 interface Props {
   listItems: Array<ListItem>;
-  selectedListItems: Array<ListItem>;
+  selectedListItems?: Array<ListItem>;
   highlightItems: Array<ListItem>;
   placeholderText: string;
   displayProperty: ItemCallback;
