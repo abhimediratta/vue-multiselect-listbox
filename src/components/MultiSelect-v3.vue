@@ -20,8 +20,28 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  
+  modelValue: () => [],
+  options: () => [],
+  reduceDisplayProperty: (value) => value,
+  reduceValueProperty: (value) => value,
+  searchOptionsPlaceholder: 'Search',
+  selectedOptionsPlaceholder: 'Search',
+  noOptionsText: '',
+  selectedNoOptionsText: '',
+  noOptionsFoundText: 'No options found',
+  noSelectedOptionsFoundText: 'No options found',
+  showSelectAllButtons: true,
+  highlightDiff: false,
+  searchInputClass: '',
+  highlightRemovedClass: 'msl-searchable-list__item--removed',
+  highlightAddedClass: 'msl-searchable-list__item--added'
 });
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: Array<ListItem>): void
+  (e: 'change', value: Array<ListItem>): void
+  (e: 'diff-changed', value: { newSelected: ListItem, newUnselected: ListItem }): void
+}>();
 </script>
 
 <template>
