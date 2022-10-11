@@ -42,6 +42,17 @@ const emit = defineEmits<{
   (e: 'change', value: Array<ListItem>): void
   (e: 'diff-changed', value: { newSelected: ListItem, newUnselected: ListItem }): void
 }>();
+
+function onSelectAllOptions(): void {
+  // TODO:
+}
+
+function onUnselectAllOptions() : void {
+  // TODO:
+
+  emit('update:modelValue', [])
+  emit('change', [])
+}
 </script>
 
 <template>
