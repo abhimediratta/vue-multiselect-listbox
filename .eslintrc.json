@@ -10,7 +10,8 @@
     "plugin:vue/vue3-recommended",
     "@vue/typescript/recommended",
     "plugin:import/recommended",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "prettier"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -21,7 +22,7 @@
     "sourceType": "module",
     "parser": "@typescript-eslint/parser"
   },
-  "plugins": ["vue", "@typescript-eslint"],
+  "plugins": ["vue", "@typescript-eslint", "prettier"],
   "settings": {
     "import/resolver": {
       "typescript": {}
@@ -33,6 +34,7 @@
     "no-unused-vars": "off",
     "vue/multi-word-component-names": ["error", {
       "ignores": ["Dev"]
-    }]
+    }],
+    "prettier/prettier": ["error"]
   }
 }
