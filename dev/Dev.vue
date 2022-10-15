@@ -4,19 +4,25 @@
       v-show="showWidget"
       ref="multi"
       v-model="value"
-      :options="options"
+      :options="stringOptions"
       :show-select-all-buttons="showSelectAll"
       search-input-class="custom-input-class"
-      :reduce-display-property="(option) => option.name"
-      :reduce-value-property="(option) => option.id"
+      :reduce-display-property="
+        (option) => (typeof option === 'object' && option.name) || option
+      "
+      :reduce-value-property="
+        (option) => (typeof option === 'object' && option.id) || option
+      "
       highlight-diff
       @diff-changed="handleChange"
     />
+
+    <button @click="resetCopy">Reset</button>
   </div>
 </template>
 
 <script>
-import MultiSelect from '../src/components/MultiSelect/MultiSelect.vue'
+import MultiSelect from '../src/components/MultiSelect-v3.vue'
 
 export default {
   components: {
@@ -38,12 +44,16 @@ export default {
   },
 
   created() {
-    this.value = ['ch', 'wi']
+    this.value = ['Chicago', 'Wisconsin']
   },
 
   methods: {
     handleChange(changes) {
       console.log('Changes', changes)
+    },
+
+    resetCopy() {
+      this.$refs.multi.resetOriginalCopy()
     },
   },
 }

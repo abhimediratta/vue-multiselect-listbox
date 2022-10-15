@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import convertArrayToMap, { getValue } from '../utils/convertArrayToMap'
 import { computed, Ref } from 'vue'
 import isEmptyObject from 'utils/isEmptyObject'
 import useDebouncedRef from '@/composables/useDebouncedRef'
-import { ListItem, ItemCallback } from './main'
+import { ListItem, OptionCallback, Options } from './main'
+import convertArrayToMap from '@/utils/convertArrayToMap'
 
 interface Props {
-  listItems: Array<ListItem>
-  selectedListItems?: Array<ListItem>
-  highlightItems: Array<ListItem>
+  listItems: Options
+  selectedListItems?: Options
+  highlightItems: Options
   placeholderText: string
-  displayProperty: ItemCallback
-  valueProperty: ItemCallback
+  displayProperty: OptionCallback
+  valueProperty: OptionCallback
   noOptionsText: string
   searchInputClass: string
   noItemsFoundText: string
@@ -35,8 +35,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{ (e: 'on-click-option', value: ListItem): void }>()
 
-const getValueFromOption = getValue
-
 const searchText: Ref<string> = useDebouncedRef('', 500)
 
 function getOptionDisplay(option: ListItem) {
@@ -53,7 +51,7 @@ const availableItems = computed<Array<ListItem>>(() => {
 
   if (!isEmptyObject(selectedItemsMap)) {
     finalItems = props.listItems.filter((item) => {
-      const value = getValue(item, props.valueProperty)
+      const value = props.valueProperty(item)
 
       const isNotSelected = !selectedItemsMap[value]
 
@@ -124,8 +122,7 @@ const clickOption = (option: ListItem) => {
           'msl-searchable-list__item--disabled':
             typeof option === 'object' && option.disabled,
           [highlightClass]:
-            highlightDiff &&
-            highlightedItemsMap[getValueFromOption(option, valueProperty)],
+            highlightDiff && highlightedItemsMap[valueProperty(option)],
         }"
         @click="clickOption(option)"
       >

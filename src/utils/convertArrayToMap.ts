@@ -1,15 +1,11 @@
-import { ItemCallback, ListItem } from 'components/main'
-
-export function getValue(item, valueProperty: ItemCallback) {
-  return valueProperty(item)
-}
+import { ListItem } from 'components/main'
 
 export default function convertArrayToMap(
   items: Array<ListItem>,
   valueProperty
 ) {
   return items.reduce((result, item) => {
-    const value = getValue(item, valueProperty)
+    const value = valueProperty(item)
     result[value] = true
     return result
   }, {})
