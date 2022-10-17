@@ -13,7 +13,8 @@
     "multiselect",
     "listbox",
     "dual",
-    "selectbox"
+    "selectbox",
+    "list"
   ],
   "author": "Abhi Mediratta <abhimediratta@gmail.com>",
   "license": "MIT",
