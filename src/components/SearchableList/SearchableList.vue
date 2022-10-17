@@ -1,6 +1,7 @@
 <template>
   <div class="msl-searchable-list">
     <input
+      v-if="!hideSearchInput"
       v-model="debouncedSearchText"
       class="msl-search-list-input"
       :class="searchInputClass"
@@ -103,6 +104,10 @@ export default {
     highlightClass: {
       type: String,
       default: '',
+    },
+    hideSearchInput: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
