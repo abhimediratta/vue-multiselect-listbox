@@ -13,6 +13,7 @@
       :highlight-items="newlyRemovedItems"
       class="msl-multi-select__list"
       :highlight-diff="highlightDiff"
+      :hide-search-input="hideSearchInputs"
       @onClickOption="onOptionSelect"
     />
 
@@ -47,6 +48,7 @@
       :highlight-class="highlightAddedClass"
       :highlight-items="newlyAddedItems"
       :highlight-diff="highlightDiff"
+      :hide-search-input="hideSearchInputs"
       class="msl-multi-select__selected msl-multi-select__list"
       @onClickOption="onOptionRemove"
     />
@@ -194,6 +196,10 @@ export default {
     highlightAddedClass: {
       type: String,
       default: 'msl-searchable-list__item--added',
+    },
+    hideSearchInputs: {
+      type: Boolean,
+      default: false,
     },
   },
 

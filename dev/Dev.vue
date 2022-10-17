@@ -6,6 +6,7 @@
       :reduce-value-property="option => option.id"
       ref="multi"
       highlight-diff
+      hide-search-inputs
       @diff-changed="handleChange" />
   </div>
 </template>

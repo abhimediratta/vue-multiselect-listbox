@@ -5,6 +5,7 @@
 .msl-searchable-list {
   display: flex;
   flex-direction: column;
+  min-width: 170px;
 }
 
 .msl-searchable-list__items {
