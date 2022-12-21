@@ -101,6 +101,23 @@ You can customize the placeholders when options are found while searching.
 <v-multiselect-listbox style="margin-bottom: 40px;" :options="[{label: 'Alabama', code: 'al'}, {label: 'California', code: 'cal'}]" :reduce-display-property="(option) => option.label" :reduce-value-property="(option) => option.code" no-options-found-text="No state found" no-selected-options-found-text="No selected state found"></v-multiselect-listbox> 
 
 
+## Hide Search Input
+
+You can hide the search input using the following option `hide-search-inputs`:
+
+```html
+<v-multiselect-listbox :options="[{label: 'Alabama', code: 'al'}, {label: 'California', code: 'cal'}]"
+                       :reduce-display-property="(option) => option.label"
+                       :reduce-value-property="(option) => option.code"
+                       no-options-found-text="No state found"
+                       no-selected-options-found-text="No selected state found"
+                       hide-search-inputs>
+</v-multiselect-listbox>
+```
+
+<v-multiselect-listbox style="margin-bottom: 40px;" :options="[{label: 'Alabama', code: 'al'}, {label: 'California', code: 'cal'}]" :reduce-display-property="(option) => option.label" :reduce-value-property="(option) => option.code" no-options-found-text="No state found" no-selected-options-found-text="No selected state found" hide-search-inputs></v-multiselect-listbox> 
+
+
 ## Style Search Input
 
 You can pass a class to style the input boxes. The property to pass the class is `search-input-class`.
