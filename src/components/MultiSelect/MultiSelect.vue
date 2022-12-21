@@ -1,6 +1,7 @@
 <template>
   <div class="msl-multi-select">
     <SearchableList
+      v-if="!readOnly"
       :list-items="availableOptions"
       :no-options-text="noOptionsText"
       :no-items-found-text="noOptionsFoundText"
@@ -15,12 +16,13 @@
       :highlight-diff="highlightDiff"
       :hide-search-input="hideSearchInputs"
       @onClickOption="onOptionSelect"
+      :disabled="disabled"
     />
 
-    <div class="msl-multi-select__actions">
+    <div class="msl-multi-select__actions" v-if="!readOnly">
       <a
         class="msl-multi-select__action msl-multi-select__action-select-all"
-        :class="{'invisible': !showSelectAllButtons}"
+        :class="{'invisible': !showSelectAllButtons, 'msl-multi-select__action--disabled': disabled }"
         @click="onSelectAllOptions"
       >
         <font-awesome-icon icon="angle-double-right" />
@@ -30,7 +32,7 @@
 
       <a
         class="msl-multi-select__action msl-multi-select__action-unselect-all"
-        :class="{'invisible': !showSelectAllButtons}"
+        :class="{'invisible': !showSelectAllButtons, 'msl-multi-select__action--disabled': disabled}"
         @click="onUnselectAllOptions"
       >
         <font-awesome-icon icon="angle-double-left" />
@@ -51,6 +53,8 @@
       :hide-search-input="hideSearchInputs"
       class="msl-multi-select__selected msl-multi-select__list"
       @onClickOption="onOptionRemove"
+      :disabled="disabled"
+      :read-only="readOnly"
     />
   </div>
 </template>
@@ -201,6 +205,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    readOnly: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
@@ -296,6 +308,10 @@ export default {
     },
 
     onSelectAllOptions() {
+      if (this.disabled || this.readOnly) {
+        return;
+      }
+
       this.selectedItems = [...this.options];
 
       const selectedValues = getValuesFromOptions(this.reduceValueProperty, this.options);
@@ -309,6 +325,10 @@ export default {
     },
 
     onUnselectAllOptions() {
+      if (this.disabled || this.readOnly) {
+        return;
+      }
+
       this.addToNewlyRemovedItems(this.selectedItems);
       this.addToNewlyAddedItems([], true);
 
