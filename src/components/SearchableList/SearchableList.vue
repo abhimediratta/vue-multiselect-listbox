@@ -7,12 +7,13 @@
       :class="searchInputClass"
       :placeholder="placeholderText"
     >
-    <div class="msl-searchable-list__items">
+    <div class="msl-searchable-list__items"
+    :class="{ 'msl-searchable-list__items--disabled': disabled || readOnly }">
       <div
         v-for="(option, index) in filteredListItems"
         :key="index"
         class="msl-searchable-list__item"
-        :class="{'msl-searchable-list__item--disabled': option.disabled, [highlightClass]: highlightDiff && highlightedItemsMap[getValue(option)] }"
+        :class="{'msl-searchable-list__item--disabled': option.disabled || disabled || readOnly, [highlightClass]: highlightDiff && highlightedItemsMap[getValue(option)] }"
         @click="clickOption(option)"
       >
         {{ getOptionDisplay(option) }}
@@ -109,6 +110,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    readOnly: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -185,6 +194,10 @@ export default {
     },
 
     clickOption(option) {
+      if (this.disabled || this.readOnly) {
+        return;
+      }
+
       this.$emit('onClickOption', option);
     },
   },
