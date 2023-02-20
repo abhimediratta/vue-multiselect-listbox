@@ -27,10 +27,23 @@ export function useTrackOptionsChanges(
    * Watch over selected options to update new up
    */
   watchEffect(() => {
+    debugger // eslint-disable-line
     newAddedOptions.value = []
     newRemovedOptions.value = []
 
-    const selectedOptionsValue = selectedOptions.value
+    const selectedOptionsValue = selectedOptions.value || []
+
+    originalSelectedOptions.value.forEach((option: ListItem) => {
+      const optionIdxInSelectedOptions = findIndexInOptions(
+        selectedOptionsValue,
+        option,
+        reduceValueProperty
+      )
+
+      if (optionIdxInSelectedOptions === -1) {
+        newRemovedOptions.value.push(option)
+      }
+    })
 
     if (selectedOptionsValue.length) {
       selectedOptionsValue.forEach((option: ListItem) => {
@@ -40,14 +53,10 @@ export function useTrackOptionsChanges(
           reduceValueProperty
         )
 
-        if (optionIdx > -1) {
-          newRemovedOptions.value.push(option)
-        } else if (optionIdx === -1) {
+        if (optionIdx === -1) {
           newAddedOptions.value.push(option)
         }
       })
-    } else {
-      newRemovedOptions.value = [...originalSelectedOptions.value]
     }
 
     emit('diff-changed', {

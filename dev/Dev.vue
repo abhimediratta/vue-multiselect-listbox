@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import MultiSelect from '../src/components/MultiSelect-v3.vue'
+import MultiSelect from '../src/components/MultiSelect.vue'
 
 export default {
   components: {
