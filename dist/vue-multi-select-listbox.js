@@ -11,7 +11,7 @@
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 780:
+/***/ 294:
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -19959,13 +19959,12 @@ function convertArrayToMap(items, valueProperty) {
 
 const _hoisted_1 = { class: "msl-searchable-list" };
 const _hoisted_2 = ["placeholder"];
-const _hoisted_3 = { class: "msl-searchable-list__items" };
-const _hoisted_4 = ["onClick"];
-const _hoisted_5 = {
+const _hoisted_3 = ["onClick"];
+const _hoisted_4 = {
     key: 0,
     class: "msl-searchable-list__no-item"
 };
-const _hoisted_6 = {
+const _hoisted_5 = {
     key: 1,
     class: "msl-searchable-list__no-item"
 };
@@ -19986,7 +19985,9 @@ const _hoisted_6 = {
         searchInputClass: { default: '' },
         noItemsFoundText: { default: 'No options found' },
         highlightDiff: { type: Boolean, default: false },
-        highlightClass: { default: '' }
+        highlightClass: { default: '' },
+        disabled: { type: Boolean, default: false },
+        readOnly: { type: Boolean, default: false }
     },
     emits: ["on-click-option"],
     setup(__props, { emit }) {
@@ -20029,6 +20030,9 @@ const _hoisted_6 = {
             (!filteredListItems.value || filteredListItems.value.length < 1));
         const highlightedItemsMap = runtime_core_esm_bundler_computed(() => convertArrayToMap(props.highlightItems, props.valueProperty));
         const clickOption = (option) => {
+            if (props.disabled || props.readOnly) {
+                return;
+            }
             emit('on-click-option', option);
         };
         return (_ctx, _cache) => {
@@ -20040,24 +20044,28 @@ const _hoisted_6 = {
                 }, null, 10, _hoisted_2), [
                     [vModelText, unref(searchText)]
                 ]),
-                createBaseVNode("div", _hoisted_3, [
+                createBaseVNode("div", {
+                    class: normalizeClass(["msl-searchable-list__items", { 'msl-searchable-list__items--disabled': __props.disabled || __props.readOnly }])
+                }, [
                     (openBlock(true), createElementBlock(runtime_core_esm_bundler_Fragment, null, renderList(unref(filteredListItems), (option, index) => {
                         return (openBlock(), createElementBlock("div", {
                             key: index,
                             class: normalizeClass(["msl-searchable-list__item", {
-                                    'msl-searchable-list__item--disabled': typeof option === 'object' && option.disabled,
+                                    'msl-searchable-list__item--disabled': (typeof option === 'object' && option.disabled) ||
+                                        __props.disabled ||
+                                        __props.readOnly,
                                     [__props.highlightClass]: __props.highlightDiff && unref(highlightedItemsMap)[__props.valueProperty(option)],
                                 }]),
                             onClick: ($event) => (clickOption(option))
-                        }, toDisplayString(getOptionDisplay(option)), 11, _hoisted_4));
+                        }, toDisplayString(getOptionDisplay(option)), 11, _hoisted_3));
                     }), 128)),
                     (unref(noItems))
-                        ? (openBlock(), createElementBlock("div", _hoisted_5, toDisplayString(__props.noOptionsText), 1))
+                        ? (openBlock(), createElementBlock("div", _hoisted_4, toDisplayString(__props.noOptionsText), 1))
                         : createCommentVNode("", true),
                     (unref(noFilteredItems))
-                        ? (openBlock(), createElementBlock("div", _hoisted_6, toDisplayString(__props.noItemsFoundText), 1))
+                        ? (openBlock(), createElementBlock("div", _hoisted_5, toDisplayString(__props.noItemsFoundText), 1))
                         : createCommentVNode("", true)
-                ])
+                ], 2)
             ]));
         };
     }
@@ -20086,7 +20094,6 @@ function useTrackOptionsChanges(originalSelectedOptions, selectedOptions, reduce
      * Watch over selected options to update new up
      */
     watchEffect(() => {
-        debugger; // eslint-disable-line
         newAddedOptions.value = [];
         newRemovedOptions.value = [];
         const selectedOptionsValue = selectedOptions.value || [];
@@ -20119,7 +20126,6 @@ function useTrackOptionsChanges(originalSelectedOptions, selectedOptions, reduce
 
 
 const MultiSelectvue_type_script_setup_true_lang_ts_hoisted_1 = { class: "msl-multi-select" };
-const MultiSelectvue_type_script_setup_true_lang_ts_hoisted_2 = { class: "msl-multi-select__actions" };
 
 
 
@@ -20143,7 +20149,9 @@ const MultiSelectvue_type_script_setup_true_lang_ts_hoisted_2 = { class: "msl-mu
         highlightDiff: { type: Boolean, default: false },
         searchInputClass: { default: '' },
         highlightRemovedClass: { default: 'msl-searchable-list__item--removed' },
-        highlightAddedClass: { default: 'msl-searchable-list__item--added' }
+        highlightAddedClass: { default: 'msl-searchable-list__item--added' },
+        disabled: { type: Boolean, default: false },
+        readOnly: { type: Boolean, default: false }
     },
     emits: ["update:modelValue", "change", "diff-changed"],
     setup(__props, { expose, emit }) {
@@ -20157,7 +20165,8 @@ const MultiSelectvue_type_script_setup_true_lang_ts_hoisted_2 = { class: "msl-mu
                         if (typeof valueProperty === 'string') {
                             return option[valueProperty] === value;
                         }
-                        else if (typeof valueProperty === 'function') { // eslint-disable-line
+                        else if (typeof valueProperty === 'function') {
+                            // eslint-disable-line
                             return valueProperty(option) === value;
                         }
                         return option;
@@ -20205,9 +20214,15 @@ const MultiSelectvue_type_script_setup_true_lang_ts_hoisted_2 = { class: "msl-mu
             immediate: true,
         });
         function onSelectAllOptions() {
+            if (props.disabled || props.readOnly) {
+                return;
+            }
             selectedOptions.value = props.options.map((option) => option);
         }
         function onUnselectAllOptions() {
+            if (this.disabled || this.readOnly) {
+                return;
+            }
             selectedOptions.value = [];
         }
         function onOptionSelect(option) {
@@ -20236,39 +20251,52 @@ const MultiSelectvue_type_script_setup_true_lang_ts_hoisted_2 = { class: "msl-mu
         });
         return (_ctx, _cache) => {
             return (openBlock(), createElementBlock("div", MultiSelectvue_type_script_setup_true_lang_ts_hoisted_1, [
-                runtime_core_esm_bundler_createVNode(SearchableList, {
-                    "list-items": unref(availableOptions),
-                    "no-options-text": __props.noOptionsText,
-                    "no-items-found-text": __props.noOptionsFoundText,
-                    "selected-list-items": unref(selectedOptions),
-                    "display-property": __props.reduceDisplayProperty,
-                    "value-property": __props.reduceValueProperty,
-                    "placeholder-text": __props.searchOptionsPlaceholder,
-                    "search-input-class": __props.searchInputClass,
-                    "highlight-class": __props.highlightRemovedClass,
-                    "highlight-items": unref(newRemovedOptions),
-                    class: "msl-multi-select__list",
-                    "highlight-diff": __props.highlightDiff,
-                    onOnClickOption: onOptionSelect
-                }, null, 8, ["list-items", "no-options-text", "no-items-found-text", "selected-list-items", "display-property", "value-property", "placeholder-text", "search-input-class", "highlight-class", "highlight-items", "highlight-diff"]),
-                createBaseVNode("div", MultiSelectvue_type_script_setup_true_lang_ts_hoisted_2, [
-                    createBaseVNode("a", {
-                        class: normalizeClass(["msl-multi-select__action msl-multi-select__action-select-all", { invisible: !__props.showSelectAllButtons }]),
-                        onClick: onSelectAllOptions
+                (!__props.readOnly)
+                    ? (openBlock(), createBlock(SearchableList, {
+                        key: 0,
+                        "list-items": unref(availableOptions),
+                        "no-options-text": __props.noOptionsText,
+                        "no-items-found-text": __props.noOptionsFoundText,
+                        "selected-list-items": unref(selectedOptions),
+                        "display-property": __props.reduceDisplayProperty,
+                        "value-property": __props.reduceValueProperty,
+                        "placeholder-text": __props.searchOptionsPlaceholder,
+                        "search-input-class": __props.searchInputClass,
+                        "highlight-class": __props.highlightRemovedClass,
+                        "highlight-items": unref(newRemovedOptions),
+                        class: "msl-multi-select__list",
+                        "highlight-diff": __props.highlightDiff,
+                        disabled: __props.disabled,
+                        onOnClickOption: onOptionSelect
+                    }, null, 8, ["list-items", "no-options-text", "no-items-found-text", "selected-list-items", "display-property", "value-property", "placeholder-text", "search-input-class", "highlight-class", "highlight-items", "highlight-diff", "disabled"]))
+                    : createCommentVNode("", true),
+                (!__props.readOnly)
+                    ? (openBlock(), createElementBlock("div", {
+                        key: 1,
+                        class: normalizeClass(["msl-multi-select__actions", { invisible: __props.disabled }])
                     }, [
-                        runtime_core_esm_bundler_createVNode(unref(FontAwesomeIcon), { icon: "angle-double-right" })
-                    ], 2),
-                    runtime_core_esm_bundler_createVNode(unref(FontAwesomeIcon), {
-                        icon: "exchange-alt",
-                        class: "multi-select__action-icon"
-                    }),
-                    createBaseVNode("a", {
-                        class: normalizeClass(["msl-multi-select__action msl-multi-select__action-unselect-all", { invisible: !__props.showSelectAllButtons }]),
-                        onClick: onUnselectAllOptions
-                    }, [
-                        runtime_core_esm_bundler_createVNode(unref(FontAwesomeIcon), { icon: "angle-double-left" })
-                    ], 2)
-                ]),
+                        createBaseVNode("a", {
+                            class: normalizeClass(["msl-multi-select__action msl-multi-select__action-select-all", {
+                                    invisible: !__props.showSelectAllButtons,
+                                }]),
+                            onClick: onSelectAllOptions
+                        }, [
+                            runtime_core_esm_bundler_createVNode(unref(FontAwesomeIcon), { icon: "angle-double-right" })
+                        ], 2),
+                        runtime_core_esm_bundler_createVNode(unref(FontAwesomeIcon), {
+                            icon: "exchange-alt",
+                            class: "multi-select__action-icon"
+                        }),
+                        createBaseVNode("a", {
+                            class: normalizeClass(["msl-multi-select__action msl-multi-select__action-unselect-all", {
+                                    invisible: !__props.showSelectAllButtons,
+                                }]),
+                            onClick: onUnselectAllOptions
+                        }, [
+                            runtime_core_esm_bundler_createVNode(unref(FontAwesomeIcon), { icon: "angle-double-left" })
+                        ], 2)
+                    ], 2))
+                    : createCommentVNode("", true),
                 runtime_core_esm_bundler_createVNode(SearchableList, {
                     "list-items": unref(selectedOptions),
                     "no-options-text": __props.selectedNoOptionsText,
@@ -20280,9 +20308,11 @@ const MultiSelectvue_type_script_setup_true_lang_ts_hoisted_2 = { class: "msl-mu
                     "highlight-class": __props.highlightAddedClass,
                     "highlight-items": unref(newAddedOptions),
                     "highlight-diff": __props.highlightDiff,
+                    disabled: __props.disabled,
+                    "read-only": __props.readOnly,
                     class: "msl-multi-select__selected msl-multi-select__list",
                     onOnClickOption: onOptionRemove
-                }, null, 8, ["list-items", "no-options-text", "no-items-found-text", "display-property", "value-property", "placeholder-text", "search-input-class", "highlight-class", "highlight-items", "highlight-diff"])
+                }, null, 8, ["list-items", "no-options-text", "no-items-found-text", "display-property", "value-property", "placeholder-text", "search-input-class", "highlight-class", "highlight-items", "highlight-diff", "disabled", "read-only"])
             ]));
         };
     }
@@ -20290,9 +20320,9 @@ const MultiSelectvue_type_script_setup_true_lang_ts_hoisted_2 = { class: "msl-mu
 
 ;// CONCATENATED MODULE: ./src/components/MultiSelect.vue?vue&type=script&setup=true&lang=ts
  
-// EXTERNAL MODULE: ./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/src/index.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[8].use[0]!./src/components/MultiSelect.vue?vue&type=style&index=0&id=4ff44620&lang=scss
-var MultiSelectvue_type_style_index_0_id_4ff44620_lang_scss = __webpack_require__(780);
-;// CONCATENATED MODULE: ./src/components/MultiSelect.vue?vue&type=style&index=0&id=4ff44620&lang=scss
+// EXTERNAL MODULE: ./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/src/index.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[8].use[0]!./src/components/MultiSelect.vue?vue&type=style&index=0&id=769f42d4&lang=scss
+var MultiSelectvue_type_style_index_0_id_769f42d4_lang_scss = __webpack_require__(294);
+;// CONCATENATED MODULE: ./src/components/MultiSelect.vue?vue&type=style&index=0&id=769f42d4&lang=scss
 
 ;// CONCATENATED MODULE: ./src/components/MultiSelect.vue
 
