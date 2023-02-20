@@ -217,10 +217,16 @@ defineExpose({
       @on-click-option="onOptionSelect"
     />
 
-    <div v-if="!readOnly" class="msl-multi-select__actions">
+    <div
+      v-if="!readOnly"
+      class="msl-multi-select__actions"
+      :class="{ invisible: disabled }"
+    >
       <a
         class="msl-multi-select__action msl-multi-select__action-select-all"
-        :class="{ invisible: !showSelectAllButtons }"
+        :class="{
+          invisible: !showSelectAllButtons,
+        }"
         @click="onSelectAllOptions"
       >
         <font-awesome-icon icon="angle-double-right" />
@@ -235,7 +241,6 @@ defineExpose({
         class="msl-multi-select__action msl-multi-select__action-unselect-all"
         :class="{
           invisible: !showSelectAllButtons,
-          'msl-multi-select__action--disabled': disabled,
         }"
         @click="onUnselectAllOptions"
       >

@@ -27,7 +27,6 @@ export function useTrackOptionsChanges(
    * Watch over selected options to update new up
    */
   watchEffect(() => {
-    debugger // eslint-disable-line
     newAddedOptions.value = []
     newRemovedOptions.value = []
 

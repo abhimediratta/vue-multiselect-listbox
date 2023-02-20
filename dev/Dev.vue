@@ -4,6 +4,7 @@
       v-show="showWidget"
       ref="multi"
       v-model="value"
+      disabled
       :options="stringOptions"
       :show-select-all-buttons="showSelectAll"
       search-input-class="custom-input-class"
