@@ -52,7 +52,9 @@ interface Props {
   highlightDiff?: boolean
   searchInputClass?: string
   highlightRemovedClass?: string
-  highlightAddedClass?: string
+  highlightAddedClass?: string,
+  disabled?: boolean,
+  readOnly?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -71,6 +73,8 @@ const props = withDefaults(defineProps<Props>(), {
   searchInputClass: '',
   highlightRemovedClass: 'msl-searchable-list__item--removed',
   highlightAddedClass: 'msl-searchable-list__item--added',
+  disabled: false,
+  readOnly: false
 })
 
 const emit = defineEmits<{
@@ -146,10 +150,18 @@ watch(
 )
 
 function onSelectAllOptions(): void {
+  if (props.disabled || props.readOnly) {
+    return
+  }
+
   selectedOptions.value = props.options.map((option) => option)
 }
 
 function onUnselectAllOptions(): void {
+  if (this.disabled || this.readOnly) {
+    return
+  }
+
   selectedOptions.value = []
 }
 
@@ -186,59 +198,39 @@ defineExpose({
 
 <template>
   <div class="msl-multi-select">
-    <SearchableList
-      :list-items="availableOptions"
+    <SearchableList 
+      v-if="!readOnly" 
+      :list-items="availableOptions" 
       :no-options-text="noOptionsText"
-      :no-items-found-text="noOptionsFoundText"
-      :selected-list-items="selectedOptions"
-      :display-property="reduceDisplayProperty"
-      :value-property="reduceValueProperty"
-      :placeholder-text="searchOptionsPlaceholder"
-      :search-input-class="searchInputClass"
-      :highlight-class="highlightRemovedClass"
-      :highlight-items="newRemovedOptions"
-      class="msl-multi-select__list"
-      :highlight-diff="highlightDiff"
-      @on-click-option="onOptionSelect"
-    />
+      :no-items-found-text="noOptionsFoundText" :selected-list-items="selectedOptions"
+      :display-property="reduceDisplayProperty" :value-property="reduceValueProperty"
+      :placeholder-text="searchOptionsPlaceholder" :search-input-class="searchInputClass"
+      :highlight-class="highlightRemovedClass" :highlight-items="newRemovedOptions" class="msl-multi-select__list"
+      :highlight-diff="highlightDiff" @on-click-option="onOptionSelect" />
 
     <div class="msl-multi-select__actions">
-      <a
-        class="msl-multi-select__action msl-multi-select__action-select-all"
-        :class="{ invisible: !showSelectAllButtons }"
-        @click="onSelectAllOptions"
-      >
+      <a class="msl-multi-select__action msl-multi-select__action-select-all"
+        :class="{ invisible: !showSelectAllButtons }" @click="onSelectAllOptions">
         <font-awesome-icon icon="angle-double-right" />
       </a>
 
-      <font-awesome-icon
-        icon="exchange-alt"
-        class="multi-select__action-icon"
-      />
+      <font-awesome-icon icon="exchange-alt" class="multi-select__action-icon" />
 
-      <a
-        class="msl-multi-select__action msl-multi-select__action-unselect-all"
-        :class="{ invisible: !showSelectAllButtons }"
-        @click="onUnselectAllOptions"
-      >
+      <a class="msl-multi-select__action msl-multi-select__action-unselect-all"
+        :class="{ invisible: !showSelectAllButtons, 'msl-multi-select__action--disabled': disabled }"
+        @click="onUnselectAllOptions">
         <font-awesome-icon icon="angle-double-left" />
       </a>
     </div>
 
-    <SearchableList
-      :list-items="selectedOptions"
+    <SearchableList 
+      :list-items="selectedOptions" 
       :no-options-text="selectedNoOptionsText"
-      :no-items-found-text="noSelectedOptionsFoundText"
-      :display-property="reduceDisplayProperty"
-      :value-property="reduceValueProperty"
-      :placeholder-text="selectedOptionsPlaceholder"
-      :search-input-class="searchInputClass"
-      :highlight-class="highlightAddedClass"
-      :highlight-items="newAddedOptions"
-      :highlight-diff="highlightDiff"
-      class="msl-multi-select__selected msl-multi-select__list"
-      @on-click-option="onOptionRemove"
-    />
+      :no-items-found-text="noSelectedOptionsFoundText" :display-property="reduceDisplayProperty"
+      :value-property="reduceValueProperty" :placeholder-text="selectedOptionsPlaceholder"
+      :search-input-class="searchInputClass" :highlight-class="highlightAddedClass" :highlight-items="newAddedOptions"
+      :highlight-diff="highlightDiff" :disabled="disabled" :read-only="readOnly"
+      class="msl-multi-select__selected msl-multi-select__list" @on-click-option="onOptionRemove" />
   </div>
 </template>
 

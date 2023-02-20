@@ -16,7 +16,9 @@ interface Props {
   searchInputClass: string
   noItemsFoundText: string
   highlightDiff: boolean
-  highlightClass: string
+  highlightClass: string,
+  disabled?: boolean,
+  readOnly?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -31,6 +33,8 @@ const props = withDefaults(defineProps<Props>(), {
   searchInputClass: '',
   highlightClass: '',
   highlightDiff: false,
+  disabled: false,
+  readOnly: false,
 })
 
 const emit = defineEmits<{ (e: 'on-click-option', value: ListItem): void }>()
@@ -101,31 +105,24 @@ const highlightedItemsMap = computed(() =>
 )
 
 const clickOption = (option: ListItem) => {
+  if (props.disabled || props.readOnly) {
+    return
+  }
+
   emit('on-click-option', option)
 }
 </script>
 
 <template>
   <div class="msl-searchable-list">
-    <input
-      v-model="searchText"
-      class="msl-search-list-input"
-      :class="searchInputClass"
-      :placeholder="placeholderText"
-    />
-    <div class="msl-searchable-list__items">
-      <div
-        v-for="(option, index) in filteredListItems"
-        :key="index"
-        class="msl-searchable-list__item"
-        :class="{
-          'msl-searchable-list__item--disabled':
-            typeof option === 'object' && option.disabled,
-          [highlightClass]:
-            highlightDiff && highlightedItemsMap[valueProperty(option)],
-        }"
-        @click="clickOption(option)"
-      >
+    <input v-model="searchText" class="msl-search-list-input" :class="searchInputClass" :placeholder="placeholderText" />
+    <div class="msl-searchable-list__items" :class="{ 'msl-searchable-list__items--disabled': disabled || readOnly }">
+      <div v-for="(option, index) in filteredListItems" :key="index" class="msl-searchable-list__item" :class="{
+        'msl-searchable-list__item--disabled':
+          (typeof option === 'object' && option.disabled) || disabled || readOnly,
+        [highlightClass]:
+          highlightDiff && highlightedItemsMap[valueProperty(option)],
+      }" @click="clickOption(option)">
         {{ getOptionDisplay(option) }}
       </div>
 

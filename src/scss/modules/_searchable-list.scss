@@ -14,6 +14,10 @@
   overflow-x: hidden;
 }
 
+.msl-searchable-list__items--disabled {
+  border: 1px solid $msl-multi-select-items-box-disabled-border-color;
+}
+
 .msl-searchable-list__no-item {
   font-size: 0.8em;
   padding: 5px 10px;
@@ -28,6 +32,19 @@
   &:hover {
     background: $msl-multi-select-item-hover-bg;
     color: $msl-multi-select-item-hover-font-color;
+  }
+
+  .msl-searchable-list__items--disabled & {
+    border-bottom: 1px solid $msl-multi-select-items-box-disabled-border-color;
+  }
+}
+
+.msl-searchable-list__item--disabled {
+  cursor: default;
+
+  &:hover {
+    background: transparent;
+    color: inherit;
   }
 }
 
