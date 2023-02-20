@@ -1,4 +1,4 @@
-import MultiSelectListbox from './components/MultiSelect/MultiSelect.vue';
+import MultiSelectListbox from './components/MultiSelect.vue';
 
 export default MultiSelectListbox;
 export { MultiSelectListbox };
