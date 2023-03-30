@@ -4,9 +4,9 @@
       search-input-class="custom-input-class"
       :reduce-display-property="option => option.name"
       :reduce-value-property="option => option.id"
+      :reduceGroupProperty="option => option.group"
       ref="multi"
       highlight-diff
-      hide-search-inputs
       @diff-changed="handleChange" />
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
     return {
       value: [],
       stringOptions: ['Chicago', 'Wisconsin', 'Houston'],
-      options: [{ name: 'Chicago', id: 'ch' }, { name: 'Wisconsin', id: 'wi' }, { name: 'Houston', id: 'ho' }],
+      options: [{ name: 'Chicago', id: 'ch', group: 'United States' }, { name: 'Wisconsin', id: 'wi', group: 'United States' }, { name: 'Houston', id: 'ho', group: 'India' }],
       showSelectAll: true,
       showWidget: true,
     };

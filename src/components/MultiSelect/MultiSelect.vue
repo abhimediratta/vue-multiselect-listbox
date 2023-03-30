@@ -17,6 +17,7 @@
       :hide-search-input="hideSearchInputs"
       @onClickOption="onOptionSelect"
       :disabled="disabled"
+      :groupProperty="reduceGroupProperty"
     />
 
     <div class="msl-multi-select__actions" v-if="!readOnly">
@@ -55,6 +56,7 @@
       @onClickOption="onOptionRemove"
       :disabled="disabled"
       :read-only="readOnly"
+      :groupProperty="reduceGroupProperty"
     />
   </div>
 </template>
@@ -164,6 +166,10 @@ export default {
     reduceValueProperty: {
       type: Function,
       default: (value) => value,
+    },
+    reduceGroupProperty: {
+      type: Function,
+      default: null
     },
     noOptionsText: {
       type: String,
