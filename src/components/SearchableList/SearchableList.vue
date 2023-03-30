@@ -29,7 +29,7 @@
 
         <div 
           v-for="option in groupedItems[groupKey].options"
-          :key="option"
+          :key="`${groupKey}-${valueProperty(option)}`"
           class="msl-searchable-list__item msl-searchable-list__item--grouped"
           :class="{'msl-searchable-list__item--disabled': option.disabled || disabled || readOnly, [highlightClass]: highlightDiff && highlightedItemsMap[getValue(option)] }"
           @click="clickOption(option)">
