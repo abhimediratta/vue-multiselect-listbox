@@ -209,7 +209,7 @@ export default {
         return groupedItems;
       }
 
-      return null;
+      return {};
     },
 
     sortedGroupKeys() {
