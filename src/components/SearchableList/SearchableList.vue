@@ -10,7 +10,7 @@
     <div class="msl-searchable-list__items"
       :class="{ 'msl-searchable-list__items--disabled': disabled || readOnly }">
       <div
-        v-if="!groupProperty"
+        v-if="!groupProperty && option"
         v-for="(option, index) in filteredListItems"
         :key="index"
         class="msl-searchable-list__item"
@@ -30,8 +30,9 @@
         <div 
           v-for="option in groupedItems[groupKey].options"
           :key="`${groupKey}-${valueProperty(option)}`"
+          v-if="option"
           class="msl-searchable-list__item msl-searchable-list__item--grouped"
-          :class="{'msl-searchable-list__item--disabled': option.disabled || disabled || readOnly, [highlightClass]: highlightDiff && highlightedItemsMap[getValue(option)] }"
+          :class="{'msl-searchable-list__item--disabled': (option && option.disabled) || disabled || readOnly, [highlightClass]: highlightDiff && highlightedItemsMap[getValue(option)] }"
           @click="clickOption(option)">
           {{ getOptionDisplay(option) }}
         </div>
