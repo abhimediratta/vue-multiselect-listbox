@@ -14,7 +14,7 @@
         v-for="(option, index) in filteredListItems"
         :key="index"
         class="msl-searchable-list__item"
-        :class="{'msl-searchable-list__item--disabled': option.disabled || disabled || readOnly, [highlightClass]: highlightDiff && highlightedItemsMap[getValue(option)] }"
+        :class="{'msl-searchable-list__item--disabled': (option && option.disabled) || disabled || readOnly, [highlightClass]: highlightDiff && highlightedItemsMap[getValue(option)] }"
         @click="clickOption(option)"
       >
         {{ getOptionDisplay(option) }}
