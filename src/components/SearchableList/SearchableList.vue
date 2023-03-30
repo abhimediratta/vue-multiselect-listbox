@@ -8,8 +8,9 @@
       :placeholder="placeholderText"
     >
     <div class="msl-searchable-list__items"
-    :class="{ 'msl-searchable-list__items--disabled': disabled || readOnly }">
+      :class="{ 'msl-searchable-list__items--disabled': disabled || readOnly }">
       <div
+        v-if="!groupProperty"
         v-for="(option, index) in filteredListItems"
         :key="index"
         class="msl-searchable-list__item"
@@ -17,6 +18,23 @@
         @click="clickOption(option)"
       >
         {{ getOptionDisplay(option) }}
+      </div>
+
+      <div
+        v-if="groupProperty"
+        v-for="groupKey in sortedGroupKeys"
+        :key="groupKey"
+      >
+        <div class="msl-searchable-list__group">{{ groupKey }}</div>
+
+        <div 
+          v-for="option in groupedItems[groupKey].options"
+          :key="option"
+          class="msl-searchable-list__item msl-searchable-list__item--grouped"
+          :class="{'msl-searchable-list__item--disabled': option.disabled || disabled || readOnly, [highlightClass]: highlightDiff && highlightedItemsMap[getValue(option)] }"
+          @click="clickOption(option)">
+          {{ getOptionDisplay(option) }}
+        </div>
       </div>
 
       <div
@@ -39,6 +57,7 @@
 <script>
 import debounce from '../../utils/debounce';
 import isEmptyObject from '../../utils/isEmptyObject';
+import isFunction from 'lodash.isfunction';
 
 function getValue(item, valueProperty) {
   return valueProperty(item);
@@ -86,6 +105,12 @@ export default {
       type: Function,
       default: (value) => value,
     },
+
+    groupProperty: {
+      type: Function,
+      default: null,
+    },
+    
     noOptionsText: {
       type: String,
       default: 'No options',
@@ -169,6 +194,26 @@ export default {
 
         return aDisplayName.localeCompare(bDisplayName);
       });
+    },
+
+    groupedItems() {
+      if (isFunction(this.groupProperty)) {
+        const groupedItems = {}
+
+        this.filteredListItems.forEach(item => {
+          const groupKey = this.groupProperty(item);
+          groupedItems[groupKey] = groupedItems[groupKey] ?? { options: [] };
+          groupedItems[groupKey].options.push(item)
+        });
+
+        return groupedItems;
+      }
+
+      return {};
+    },
+
+    sortedGroupKeys() {
+      return Object.keys(this.groupedItems).sort()
     },
 
     filteredListItems() {

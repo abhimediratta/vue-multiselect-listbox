@@ -49,6 +49,16 @@
   }
 }
 
+.msl-searchable-list__group {
+  padding: 5px 10px;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.msl-searchable-list__item--grouped {
+  padding-left: 20px;
+}
+
 
 .msl-searchable-list__item--removed {
   background: red;

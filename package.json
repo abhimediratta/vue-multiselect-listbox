@@ -1,6 +1,6 @@
 {
   "name": "vue-multiselect-listbox",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Multi-select widget where users can select options from a list in the left side to a list on the right",
   "main": "dist/vue-multi-select-listbox.js",
   "scripts": {
@@ -38,6 +38,7 @@
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-vue": "^6.2.2",
     "html-webpack-plugin": "^3.2.0",
+    "lodash.isfunction": "^3.0.9",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.14.1",
     "postcss-loader": "^3.0.0",
