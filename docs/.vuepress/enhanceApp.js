@@ -1,5 +1,5 @@
 import pageComponents from '@internal/page-components'
-import MultiSelect from '../../src/components/MultiSelect/MultiSelect';
+import MultiSelect from '../../src/components/MultiSelect.vue';
 
 export default ({Vue, options, router, siteData}) => {
   Vue.component('v-multiselect-listbox', MultiSelect);

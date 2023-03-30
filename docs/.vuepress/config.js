@@ -1,3 +1,7 @@
+import { defaultTheme } from 'vuepress'
+import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
+import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
+
 const meta = {
   title: 'Vue Multi-Select Dual Listbox Component',
   description: 'Multi-select widget where users can select options from a list in the left side to a list on the right',
@@ -12,21 +16,18 @@ let head = [
   ['meta', {property: 'og:site_name', content: meta.title}]
 ];
 
-module.exports = {
+export default {
   title: 'Vue Multi-Select Dual Listbox',
   description: meta.description,
   base: '/vue-multiselect-listbox/',
   head,
   plugins: [
-    [
-      '@vuepress/google-analytics',
-      {
-        'ga': 'UA-156490644-1'
-      }
-    ],
-    '@vuepress/register-components'
+    googleAnalyticsPlugin({
+      id: 'G-359142423'
+    }),
+    registerComponentsPlugin()
   ],
-  themeConfig: {
+  theme: defaultTheme({
     repo: 'abhimediratta/vue-multiselect-listbox',
     docsDir: 'docs',
     sidebar: {
@@ -49,5 +50,5 @@ module.exports = {
         }
       ],
     }
-  },
+  }),
 };

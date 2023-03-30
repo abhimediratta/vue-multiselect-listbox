@@ -10,9 +10,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "@vuepress/plugin-google-analytics": "^1.2.0",
-    "@vuepress/plugin-register-components": "^1.2.0",
-    "vue": "^2.6.14",
-    "vuepress": "^1.9.7"
+    "@vuepress/client": "^2.0.0-beta.61",
+    "@vuepress/plugin-google-analytics": "^2.0.0-beta.61",
+    "@vuepress/plugin-register-components": "^2.0.0-beta.61",
+    "vue": "^3.2.47",
+    "vuepress": "^2.0.0-beta.61"
   }
 }
