@@ -7,33 +7,39 @@
       :class="searchInputClass"
       :placeholder="placeholderText"
     >
-    <div class="msl-searchable-list__items"
-      :class="{ 'msl-searchable-list__items--disabled': disabled || readOnly }">
-      <div
-        v-if="!groupProperty"
-        v-for="(option, index) in filteredListItems"
-        :key="index"
-        class="msl-searchable-list__item"
-        :class="{'msl-searchable-list__item--disabled': option.disabled || disabled || readOnly, [highlightClass]: highlightDiff && highlightedItemsMap[getValue(option)] }"
-        @click="clickOption(option)"
-      >
-        {{ getOptionDisplay(option) }}
+    <div
+      class="msl-searchable-list__items"
+      :class="{ 'msl-searchable-list__items--disabled': disabled || readOnly }"
+    >
+      <div v-if="!groupProperty">
+        <div
+          v-for="(option, index) in filteredListItems"
+          :key="index"
+          class="msl-searchable-list__item"
+          :class="{'msl-searchable-list__item--disabled': (option && option.disabled) || disabled || readOnly, [highlightClass]: highlightDiff && highlightedItemsMap[getValue(option)] }"
+          @click="clickOption(option)"
+        >
+          {{ getOptionDisplay(option) }}
+        </div>
       </div>
 
-      <div
-        v-if="groupProperty"
-        v-for="groupKey in sortedGroupKeys"
-        :key="groupKey"
-      >
-        <div class="msl-searchable-list__group">{{ groupKey }}</div>
-
-        <div 
-          v-for="option in groupedItems[groupKey].options"
-          :key="option"
-          class="msl-searchable-list__item msl-searchable-list__item--grouped"
-          :class="{'msl-searchable-list__item--disabled': option.disabled || disabled || readOnly, [highlightClass]: highlightDiff && highlightedItemsMap[getValue(option)] }"
-          @click="clickOption(option)">
-          {{ getOptionDisplay(option) }}
+      <div v-if="groupProperty">
+        <div
+          v-for="groupKey in sortedGroupKeys"
+          :key="groupKey"
+        >
+          <div class="msl-searchable-list__group">
+            {{ groupKey }}
+          </div>
+          <div
+            v-for="option in groupedItems[groupKey].options"
+            :key="`${groupKey}-${valueProperty(option)}`"
+            class="msl-searchable-list__item msl-searchable-list__item--grouped"
+            :class="{'msl-searchable-list__item--disabled': (option && option.disabled) || disabled || readOnly, [highlightClass]: highlightDiff && highlightedItemsMap[getValue(option)] }"
+            @click="clickOption(option)"
+          >
+            {{ getOptionDisplay(option) }}
+          </div>
         </div>
       </div>
 
@@ -55,9 +61,9 @@
 </template>
 
 <script>
+import isFunction from 'lodash.isfunction';
 import debounce from '../../utils/debounce';
 import isEmptyObject from '../../utils/isEmptyObject';
-import isFunction from 'lodash.isfunction';
 
 function getValue(item, valueProperty) {
   return valueProperty(item);
@@ -65,6 +71,10 @@ function getValue(item, valueProperty) {
 
 function convertArrayToMap(items, valueProperty) {
   return items.reduce((result, item) => {
+    if (!item) {
+      return result;
+    }
+
     const value = getValue(item, valueProperty);
     result[value] = true;
     return result;
@@ -110,7 +120,7 @@ export default {
       type: Function,
       default: null,
     },
-    
+
     noOptionsText: {
       type: String,
       default: 'No options',
@@ -198,12 +208,12 @@ export default {
 
     groupedItems() {
       if (isFunction(this.groupProperty)) {
-        const groupedItems = {}
+        const groupedItems = {};
 
-        this.filteredListItems.forEach(item => {
+        this.filteredListItems.forEach((item) => {
           const groupKey = this.groupProperty(item);
           groupedItems[groupKey] = groupedItems[groupKey] ?? { options: [] };
-          groupedItems[groupKey].options.push(item)
+          groupedItems[groupKey].options.push(item);
         });
 
         return groupedItems;
@@ -213,19 +223,23 @@ export default {
     },
 
     sortedGroupKeys() {
-      return Object.keys(this.groupedItems).sort()
+      return Object.keys(this.groupedItems).sort();
     },
 
     filteredListItems() {
       if (this.searchText != null && this.searchText !== '') {
         return this.availableItems.filter(function filterItem(item) {
+          if (!item) {
+            return;
+          }
+
           const display = this.getOptionDisplay(item);
 
           return display && display.toLowerCase().includes(this.searchText.toLowerCase());
         }.bind(this));
       }
 
-      return this.availableItems;
+      return this.availableItems.filter((item) => Boolean(item));
     },
   },
 
