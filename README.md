@@ -16,14 +16,14 @@ See demo and documentation [here](https://abhimediratta.github.io/vue-multiselec
 
 ## 0.4.0
 
-## Added
+### Added
 
 - Support functionality to show options grouped by a certain field in the option object 
 
 
 ### 1.0.0-1
 
-## Added
+### Added
 
 - **Breaking:** Support for Vue 3 added
 
