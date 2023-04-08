@@ -4,7 +4,7 @@
       search-input-class="custom-input-class"
       :reduce-display-property="option => option.name"
       :reduce-value-property="option => option.id"
-      :reduceGroupProperty="option => option.group"
+      :reduce-group-property="option => option.group"
       ref="multi"
       highlight-diff
       @diff-changed="handleChange" />

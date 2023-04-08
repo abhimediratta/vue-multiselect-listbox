@@ -20,7 +20,20 @@
 
 <v-multiselect-listbox style="margin-bottom: 40px;" :options="[{label: 'Alabama', code: 'al'}, {label: 'California', code: 'cal'}]" :reduce-display-property="(option) => option.label" :reduce-value-property="(option) => option.code"></v-multiselect-listbox>
 
+## Group List options
 
+You can group options based on a certain property.
+
+```html
+<!-- or, an array of objects -->
+<v-multiselect-listbox :options="[{label: 'Alabama', code: 'al', group: 'US'}, {label: 'California', code: 'cal', group: 'US'}, {label: 'British Columbia', code: 'bc', group: 'Canada'}]"
+                       :reduce-display-property="(option) => option.label"
+                       :reduce-value-property="(option) => option.code"
+                       :reduce-group-property="(option) => option.group">
+</v-multiselect-listbox>
+```
+
+<v-multiselect-listbox style="margin-bottom: 40px;" :options="[{label: 'Alabama', code: 'al', group: 'US'}, {label: 'California', code: 'cal', group: 'US'}, {label: 'British Columbia', code: 'bc', group: 'Canada'}]" :reduce-display-property="(option) => option.label" :reduce-value-property="(option) => option.code" :reduce-group-property="(option) => option.group"></v-multiselect-listbox>
 
 ## Select/Deselect All Buttons
 
