@@ -21,7 +21,7 @@ See demo and documentation [here](https://abhimediratta.github.io/vue-multiselec
 - Support functionality to show options grouped by a certain field in the option object 
 
 
-### 1.0.0-1
+## 1.0.0-1
 
 ### Added
 
