@@ -7,5 +7,8 @@
       "utils/*": ["./src/utils/*"]
     }
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "vueCompilerOptions": {
+    "target": 2
+  }
 }
