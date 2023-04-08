@@ -25,7 +25,6 @@
 You can group options based on a certain property.
 
 ```html
-<!-- or, an array of objects -->
 <v-multiselect-listbox :options="[{label: 'Alabama', code: 'al', group: 'US'}, {label: 'California', code: 'cal', group: 'US'}, {label: 'British Columbia', code: 'bc', group: 'Canada'}]"
                        :reduce-display-property="(option) => option.label"
                        :reduce-value-property="(option) => option.code"
