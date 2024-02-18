@@ -1,13 +1,9 @@
 {
   "name": "vue-multiselect-listbox",
-  "version": "1.0.0-1",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "description": "Multi-select widget where users can select options from a list in the left side to a list on the right",
-  "main": "dist/vue-multi-select-listbox.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "webpack-dev-server --config build/webpack.dev.config.js --hot --progress",
-    "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.config.js --progress"
-  },
   "keywords": [
     "vue",
     "multiselect",
@@ -15,60 +11,40 @@
     "dual",
     "selectbox"
   ],
-  "author": "Abhi Mediratta <abhimediratta@gmail.com>",
-  "license": "MIT",
+  "main": "./dist/vue-multi-select-listbox.umd.js",
+  "module": "./dist/vue-multi-select-listbox.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-multi-select-listbox.esm.js",
+      "require": "./dist/vue-multi-select-listbox.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "dev": "vite ./dev --host",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.15"
+  },
   "devDependencies": {
-    "@babel/core": "^7.14.8",
-    "@babel/plugin-transform-runtime": "^7.14.5",
-    "@babel/preset-env": "^7.14.8",
-    "@babel/runtime": "^7.14.8",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
-    "@types/webpack-env": "^1.18.0",
-    "@typescript-eslint/eslint-plugin": "^5.38.0",
-    "@typescript-eslint/parser": "^5.38.0",
-    "@vue/compiler-sfc": "^2.6.14",
-    "@vue/eslint-config-typescript": "^11.0.2",
-    "autoprefixer": "^9.8.5",
-    "babel-loader": "^8.1.0",
-    "babel-plugin-transform-imports": "^2.0.0",
-    "cross-env": "^6.0.3",
-    "css-loader": "^3.6.0",
-    "cssnano": "^4.1.11",
-    "eslint": "^8.24.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-import-resolver-typescript": "^3.5.1",
-    "eslint-loader": "^3.0.4",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-vue": "^9.4.0",
-    "eslint-webpack-plugin": "^3.2.0",
-    "fork-ts-checker-webpack-plugin": "^7.2.12",
-    "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^0.9.0",
-    "postcss-loader": "^3.0.0",
-    "postcss-scss": "^2.1.1",
-    "sass": "^1.55.0",
-    "sass-loader": "^13.0.2",
-    "ts-loader": "^9.3.1",
-    "typescript": "^4.7.4",
-    "vue": "^3.2.37",
-    "vue-loader": "^17.0.0",
-    "vue-style-loader": "^4.1.2",
-    "vue-template-compiler": "^2.7.10",
-    "webpack": "^5.74.0",
-    "webpack-bundle-analyzer": "^3.8.0",
-    "webpack-cli": "^4.6.1",
-    "webpack-dev-server": "^4.11.1",
-    "webpack-merge": "^5.8.0"
+    "@vitejs/plugin-vue": "^5.0.3",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.0",
+    "vite-plugin-dts": "^3.7.2",
+    "vue-tsc": "^1.8.27"
   },
   "homepage": "https://abhimediratta.github.io/vue-multiselect-listbox/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/abhimediratta/vue-multiselect-listbox.git"
-  },
-  "dependencies": {
-    "@rushstack/eslint-patch": "^1.2.0"
   }
 }
